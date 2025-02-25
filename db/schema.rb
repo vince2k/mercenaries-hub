@@ -10,9 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_25_182650) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_25_194233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "mercenary_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "status"
+    t.text "mission_purpose"
+    t.string "mission_place"
+    t.integer "total_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mercenary_id"], name: "index_bookings_on_mercenary_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "mercenaries", force: :cascade do |t|
+    t.string "name"
+    t.string "specialty"
+    t.string "bio"
+    t.integer "price_per_day"
+    t.string "address"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_mercenaries_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "content"
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_reviews_on_booking_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +58,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_182650) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "nickname"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "mercenaries"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "mercenaries", "users"
+  add_foreign_key "reviews", "bookings"
 end
