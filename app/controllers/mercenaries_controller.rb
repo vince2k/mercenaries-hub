@@ -1,11 +1,12 @@
 class MercenariesController < ApplicationController
+  before_action :authenticate_user! # Devise s’assure que l’utilisateur est connecté avant d’accéder aux actions
+
   def new
     @mercenary = Mercenary.new
   end
 
   def create
-    @mercenary = Mercenary.new(mercenary_params)
-    @mercenary.user = User.first # TEMPORAIRE : Associer au premier user en base
+    @mercenary = current_user.mercenaries.build(mercenary_params) # Associe directement le mercenaire à l’utilisateur connecté par devise
 
     if @mercenary.save
       redirect_to root_path, notice: "Mercenaire ajouté avec succès !"

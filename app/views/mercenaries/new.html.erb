@@ -1,7 +1,6 @@
 <h1>Ajouter un mercenaire</h1>
 
 <%= form_with model: @mercenary, url: mercenaries_path, method: :post, local: true do |form| %>
-
   <div>
     <%= form.label :name, "Nom du mercenaire" %>
     <%= form.text_field :name, required: true %>
@@ -9,7 +8,7 @@
 
   <div>
     <%= form.label :bio, "Biographie" %>
-    <%= form.text_area :bio, required: true %>
+    <%= form.text_area :bio, required: false %>
   </div>
 
   <div>
@@ -35,5 +34,4 @@
   <div>
     <%= form.submit "Ajouter le mercenaire" %>
   </div>
-
 <% end %>
