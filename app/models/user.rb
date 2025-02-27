@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :mercenaries
   has_many :bookings
+
   # voir si last_name first name et/ou nickname doivent être validés
 
   has_one_attached :photo
