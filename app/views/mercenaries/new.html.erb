@@ -10,7 +10,7 @@
   </div>
 
   <div>
-    <%= form.input :photo_url, label: "URL de la photo" %>
+    <%= form.input :photo, as: :file, label: "Télécharger une photo", input_html: { class: "custom-file-input" } %>
   </div>
 
   <div>
