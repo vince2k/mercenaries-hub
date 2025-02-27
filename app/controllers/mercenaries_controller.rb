@@ -1,6 +1,9 @@
 class MercenariesController < ApplicationController
-  before_action :authenticate_user! # Devise s’assure que l’utilisateur est connecté avant d’accéder aux actions
+  before_action :authenticate_user!, only: [:new, :create] # Devise s’assure que l’utilisateur est connecté avant d’accéder aux actions
 
+  def index
+    @mercenaries = Mercenary.all
+  end
   def new
     @mercenary = Mercenary.new
   end
