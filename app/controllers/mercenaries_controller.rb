@@ -1,6 +1,10 @@
 class MercenariesController < ApplicationController
-  before_action :authenticate_user! # Devise s’assure que l’utilisateur est connecté avant d’accéder aux actions
-  before_action :set_mercenary, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy] # Devise s’assure que l’utilisateur est connecté avant d’accéder aux actions
+  before_action :set_mercenary, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @mercenaries = Mercenary.all
+  end
 
   def new
     @mercenary = Mercenary.new
@@ -43,6 +47,6 @@ class MercenariesController < ApplicationController
   end
 
   def mercenary_params
-    params.require(:mercenary).permit(:name, :bio, :photo_url, :price_per_day, :address, :specialty)
+    params.require(:mercenary).permit(:name, :bio, :picture, :price_per_day, :address, :specialty)
   end
 end

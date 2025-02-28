@@ -1,37 +1,31 @@
 <h1>Ajouter un mercenaire</h1>
 
-<%= form_with model: @mercenary, url: mercenaries_path, method: :post, local: true do |form| %>
+<%= simple_form_for @mercenary do |form| %>
   <div>
-    <%= form.label :name, "Nom du mercenaire" %>
-    <%= form.text_field :name, required: true %>
+    <%= form.input :name, label: "Nom du mercenaire", required: true %>
   </div>
 
   <div>
-    <%= form.label :bio, "Biographie" %>
-    <%= form.text_area :bio, required: false %>
+    <%= form.input :bio, as: :text, label: "Biographie", required: false %>
   </div>
 
   <div>
-    <%= form.label :photo_url, "URL de la photo" %>
-    <%= form.text_field :photo_url %>
+    <%= form.input :picture, as: :file, label: "Télécharger une photo", input_html: { class: "custom-file-input" } %>
   </div>
 
   <div>
-    <%= form.label :price_per_day, "Tarif journalier (€)" %>
-    <%= form.number_field :price_per_day, required: true %>
+    <%= form.input :price_per_day, label: "Tarif journalier (€)", required: true %>
   </div>
 
   <div>
-    <%= form.label :address, "Adresse" %>
-    <%= form.text_field :address, required: true %>
+    <%= form.input :address, label: "Adresse", required: true %>
   </div>
 
   <div>
-    <%= form.label :specialty, "Spécialité" %>
-    <%= form.text_field :specialty, required: true %>
+    <%= form.input :specialty, label: "Spécialité", required: true %>
   </div>
 
   <div>
-    <%= form.submit "Ajouter le mercenaire" %>
+    <%= form.submit "Ajouter le mercenaire", class: "btn btn-primary" %>
   </div>
 <% end %>
