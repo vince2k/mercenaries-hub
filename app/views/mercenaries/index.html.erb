@@ -4,13 +4,16 @@
   <% @mercenaries.each do |mercenary| %>
   <div class="mercenary-card">
     <% if mercenary.picture.attached? %>
-      <img src="<%= url_for(mercenary.photo) %>" alt="<%= mercenary.name %>">
+      <%= cl_image_tag mercenary.picture.key %>
     <% end %>
     <h2><%= mercenary.name %></h2>
     <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
     <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
     <p><strong>Localisation :</strong> <%= mercenary.address %></p>
     <p><%= mercenary.bio.truncate(100) %></p>
+  </div>
+  <div>
+  <%= link_to "Réserver", new_mercenary_booking_path(mercenary), class:"cta-button" %>
   </div>
 <% end %>
 </div>
