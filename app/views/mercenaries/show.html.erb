@@ -1,0 +1,31 @@
+<div class="mercenary-profile">
+  <h1><%= @mercenary.name %></h1>
+  <p><strong>Spécialité :</strong> <%= @mercenary.specialty %></p>
+  <p><strong>Bio :</strong> <%= @mercenary.bio %></p>
+  <p><strong>Prix :</strong> <%= number_to_currency(@mercenary.price_per_day, unit: "€") %> / jour</p>
+  <p><strong>Adresse :</strong> <%= @mercenary.address %></p>
+
+  <% if @mercenary.picture.attached? %>
+    <%= cl_image_tag @mercenary.picture.key, height: 300, width: 400, crop: :fill %>
+  <% else %>
+    <p>Aucune image disponible</p>
+  <% end %>
+
+  <% if @reviews.present? %>
+    <h3>Reviews</h3>
+    <% @reviews.each do |review| %>
+    <p><strong>Note :</strong> <%= review.rating %>/5</p>
+    <p><%= review.content %></p>
+    <% end %>
+  <% else %>
+    <h3>Reviews</h3>
+    <p>Aucun avis pour ce mercenaire.</p>
+  <% end %>
+
+
+  <div class="btn-container">
+    <%= link_to "Modifier", edit_mercenary_path(@mercenary), class: "btn btn-primary" %>
+    <%= link_to "Supprimer", mercenary_path(@mercenary), method: :delete, data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce profil de mercenaire ?" }, class: "btn btn-danger" %>
+  </div>
+
+</div>
