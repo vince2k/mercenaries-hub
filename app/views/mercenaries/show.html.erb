@@ -25,7 +25,7 @@
 
   <div class="btn-container">
     <%= link_to "Modifier", edit_mercenary_path(@mercenary), class: "btn btn-primary" %>
-    <%= link_to "Supprimer", mercenary_path(@mercenary), method: :delete, data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce profil de mercenaire ?" }, class: "btn btn-danger" %>
+    <%= link_to "Supprimer", mercenary_path(@mercenary), data: { turbo_confirm: "Es-tu sûr de vouloir supprimer ce profil de mercenaire ?", turbo_method: :delete }, class: "btn btn-danger" %>
   </div>
 
 </div>
