@@ -1,0 +1,35 @@
+
+<div class="container">
+  <h1>Mes réservations</h1>
+
+<% if @bookings.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Mission</th>
+        <th>Lieu</th>
+        <th>Date de début</th>
+        <th>Date de fin</th>
+        <th>Mercenaire</th>
+        <th>Prix total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bookings.each do |booking| %>
+        <tr>
+          <td><%= booking.mission_purpose %></td>
+          <td><%= booking.mission_place %></td>
+          <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+          <td><%= booking.end_date.strftime("%d/%m/%Y") %></td>
+          <td><%= booking.mercenary.name %></td>
+          <td><%= booking.total_price %> €</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Vous n’avez pas encore de réservations.</p>
+<% end %>
+
+<%= link_to "Réserver un mercenaire", mercenaries_path, class: "btn btn-primary" %>
+</div>
