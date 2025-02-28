@@ -10,7 +10,9 @@
   <div>
     <h3><%= mercenary.name %></h3>
     <p><%= mercenary.bio %></p>
-    <%= image_tag mercenary.photo_url, alt: mercenary.name, width: 200, height: 250, style: "object-fit: cover;" %>
+    <%if mercenary.picture.attached? %>
+      <%= cl_image_tag mercenary.picture.key, alt: mercenary.name, width: 200, height: 250, style: "object-fit: cover;" %>
+    <%end %>
   </div>
 <% end %>
   </div>
