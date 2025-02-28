@@ -242,8 +242,19 @@ mercenaries = [
 # Sauvegarde des mercenaires avec gestion des erreurs
 mercenaries.each_with_index do |mercenary_data, index|
   begin
+    # Télécharger l'image depuis l'URL et l'envoyer à Cloudinary
+    downloaded_image = URI.open(mercenary_data[:photo_url])
+    uploaded_image = Cloudinary::Uploader.upload(downloaded_image,
+      public_id: "mercenary_#{mercenary_data[:name].parameterize}_#{index}", # Unique identifier
+      folder: "mercenaries" # Optional: organize in a folder
+    )
+
+    # Remplacer l'URL initiale par l'URL sécurisée de Cloudinary
+    mercenary_data[:photo_url] = uploaded_image['secure_url']
+
+    # Créer le mercenaire dans la base de données
     Mercenary.create!(mercenary_data)
-    puts "Mercenaire #{index + 1} (#{mercenary_data[:name]}) créé avec succès !"
+    puts "Mercenaire #{index + 1} (#{mercenary_data[:name]}) créé avec succès ! Image uploadée sur Cloudinary : #{mercenary_data[:photo_url]}"
   rescue StandardError => e
     puts "Erreur lors de la création du mercenaire #{index + 1} : #{e.message}"
   end
