@@ -23,6 +23,18 @@ form {
     border-radius: 4px;
   }
 
+  input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .custom-file-input {
+    width: 100%;
+  }
+
   textarea {
     height: 100px;
   }

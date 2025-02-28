@@ -2,13 +2,15 @@
 
 <div class="mercenary-list">
   <% @mercenaries.each do |mercenary| %>
-    <div class="mercenary-card">
-      <img src="<%= mercenary.photo_url %>" alt="<%= mercenary.name %>">
-      <h2><%= mercenary.name %></h2>
-      <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
-      <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
-      <p><strong>Localisation :</strong> <%= mercenary.address %></p>
-      <p><%= mercenary.bio.truncate(100) %></p>
-    </div>
-  <% end %>
+  <div class="mercenary-card">
+    <% if mercenary.picture.attached? %>
+      <img src="<%= url_for(mercenary.photo) %>" alt="<%= mercenary.name %>">
+    <% end %>
+    <h2><%= mercenary.name %></h2>
+    <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
+    <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
+    <p><strong>Localisation :</strong> <%= mercenary.address %></p>
+    <p><%= mercenary.bio.truncate(100) %></p>
+  </div>
+<% end %>
 </div>

@@ -21,6 +21,6 @@ class MercenariesController < ApplicationController
   private
 
   def mercenary_params
-    params.require(:mercenary).permit(:name, :bio, :photo_url, :price_per_day, :address, :specialty)
+    params.require(:mercenary).permit(:name, :bio, :picture, :price_per_day, :address, :specialty)
   end
 end
