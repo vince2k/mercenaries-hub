@@ -1,5 +1,5 @@
 <div class="home-container">
-  <h1>Bienvenue sur Mercenaries Hub</h1>
+ <h1>Bienvenue <%= current_user&.nickname.presence || current_user&.email || "sur Mercenaries Hub" %></h1>
   <p>La plateforme qui vous permet de louer des mercenaires en toute simplicité.</p>
   <%= link_to "Découvrir", mercenaries_path, class: "btn btn-primary" %>
 </div>
