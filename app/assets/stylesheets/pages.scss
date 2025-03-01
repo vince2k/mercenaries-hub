@@ -1,6 +1,9 @@
 .home-container {
   text-align: center;
-  background: linear-gradient(to right, #141e30, #243b55);
+  background-color: #024b7e;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
   height: 100vh;
   display: flex;
@@ -101,4 +104,109 @@
       }
     }
   }
+}
+
+#mercenaryCarousel {
+  max-width: 900px;
+  margin: auto;
+
+  .carousel-item {
+    padding: 20px;
+  }
+
+  .img-fluid {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.mercenary-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.mercenary-card {
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 280px;
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  overflow: hidden;
+  text-align: center;
+  gap: 10px;
+}
+
+.mercenary-image {
+  width: 100%;
+  height: 60%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 8px;
+  background-color: black;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+
+
+.mercenary-bio {
+  min-height: 80px;
+  max-height: 100px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.mercenary-image-container {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mercenary-image {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+
+.no-margin {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.mercenary-card .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.row {
+  justify-content: center;
+  gap: 50px;
+}
+
+.mercenary-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.mercenary-card-link:hover {
+  color: inherit;
+  text-decoration: none;
 }

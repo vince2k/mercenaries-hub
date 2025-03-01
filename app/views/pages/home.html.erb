@@ -5,15 +5,48 @@
 </div>
 <div class="mercenaries-preview">
   <h2>Nos meilleurs mercenaires</h2>
-  <div class="mercenaries-container">
-    <% @mercenaries.each do |mercenary| %>
-  <div>
-    <h3><%= mercenary.name %></h3>
-    <p><%= mercenary.bio %></p>
-    <%if mercenary.picture.attached? %>
-      <%= cl_image_tag mercenary.picture.key, alt: mercenary.name, width: 200, height: 250, style: "object-fit: cover;" %>
-    <%end %>
-  </div>
-<% end %>
+
+  <div id="mercenaryCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+      <% @mercenaries.each_slice(3).with_index do |group, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <div class="row g-4 justify-content-center align-items-stretch">
+
+            <% group.each do |mercenary| %>
+              <div class="col-md-3">
+                <%= link_to mercenary_path(mercenary), class: "mercenary-card-link" do %>
+                  <div class="mercenary-card text-center">
+                    <h3 class="no-margin"><%= mercenary.name %></h3>
+                    <p class="no-margin mercenary-bio"><%= mercenary.bio %></p>
+
+                    <% if mercenary.picture.attached? %>
+                      <div class="mercenary-image-container">
+                        <%= cl_image_tag mercenary.picture.key, class: "no-margin mercenary-image" %>
+                      </div>
+                    <% end %>
+
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+    <!-- Boutons de navigation -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#mercenaryCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#mercenaryCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
+
   </div>
 </div>
