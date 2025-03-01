@@ -322,4 +322,3 @@
   end
 
   puts "#{Booking.count} bookings ajoutés à la base de données !"
-end
