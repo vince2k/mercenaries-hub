@@ -18,7 +18,7 @@
                 <%= link_to mercenary_path(mercenary), class: "mercenary-card-link" do %>
                   <div class="mercenary-card text-center">
                     <h3 class="no-margin"><%= mercenary.name %></h3>
-                    <p class="no-margin mercenary-bio"><%= mercenary.bio %></p>
+                    <p class="no-margin mercenary-bio"><%= mercenary.specialty %></p>
 
                     <% if mercenary.picture.attached? %>
                       <div class="mercenary-image-container">
