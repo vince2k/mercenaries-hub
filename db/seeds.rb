@@ -1,6 +1,3 @@
-if Rails.env.development?
-  puts "Exécution de la seed en environnement développement uniquement."
-
   # Nettoyage des tables dans le bon ordre : mercenaires d'abord, puis utilisateurs
   Booking.destroy_all if defined?(Booking) # Évite une erreur si Booking n'existe pas encore
   puts "Table bookings nettoyée !"
