@@ -1,6 +1,7 @@
 class MercenariesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy] # Devise s’assure que l’utilisateur est connecté avant d’accéder aux actions
   before_action :set_mercenary, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy] # Vérifie que l'utilisateur est propriétaire du mercenaire.
 
   def index
     @mercenaries = Mercenary.all
@@ -11,7 +12,7 @@ class MercenariesController < ApplicationController
   end
 
   def create
-    @mercenary = current_user.mercenaries.build(mercenary_params) # Associe directement le mercenaire à l’utilisateur connecté par devise
+    @mercenary = current_user.mercenaries.build(mercenary_params) # Associe directement le mercenaire à l’utilisateur connecté par devise.
     if @mercenary.save
       redirect_to root_path, notice: "Mercenaire ajouté avec succès !"
     else
@@ -20,7 +21,7 @@ class MercenariesController < ApplicationController
   end
 
   def show
-    @reviews = @mercenary.reviews if defined?(Review) # Charge les reviews si la table Review existe
+    @reviews = @mercenary.reviews if defined?(Review) # Charge les reviews si la table Review existe.
   end
 
   def edit
@@ -44,6 +45,11 @@ class MercenariesController < ApplicationController
 
   def set_mercenary
     @mercenary = Mercenary.find(params[:id])
+  end
+
+  # Nouvelle méthode pour vérifier si l'utilisateur est propriétaire
+  def authorize_user!
+    redirect_to mercenaries_path unless current_user == @mercenary.user
   end
 
   def mercenary_params
