@@ -102,3 +102,108 @@
     }
   }
 }
+
+.filters-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Maintenant en pleine largeur */
+  max-width: 100vw; /* S'assurer qu'il prend toute la largeur */
+  margin: 20px auto;
+
+  .filter-form .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .filter-form .col-md-3,
+.filter-form .col-md-2,
+.filter-form .col-md-1 {
+  flex: 1; /* Assurer que les éléments prennent tout l'espace disponible */
+  min-width: 150px; /* Éviter qu'ils deviennent trop petits */
+}
+
+
+.filter-form .btn-primary {
+  height: 40px;
+  font-size: 14px;
+  padding: 5px 15px;
+  width: 100%;
+  max-width: 120px;
+}
+
+  .filter-group {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+
+  .filter-form {
+    width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+
+.form-control {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+
+.btn-primary {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+}
+}
+
+
+
+
+.mercenary-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.mercenary-card {
+  width: 300px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mercenary-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.no-mercenaries {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
