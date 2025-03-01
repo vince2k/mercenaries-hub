@@ -1,2 +1,8 @@
-<h1>Modifier le profil du mercenaire</h1>
-<%= render "form", mercenary: @mercenary %>
+<div class="container">
+  <h1>Modifier le profil du mercenaire</h1>
+  <%= render "form", mercenary: @mercenary %>
+
+  <div class="back-button">
+    <%= link_to "Retour au profil du mercenaire", mercenary_path(@mercenary), class: "btn btn-secondary" %>
+  </div>
+</div>

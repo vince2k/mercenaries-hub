@@ -88,6 +88,23 @@ form {
   }
 }
 
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+}
+
+
 /* Page Show (Profil d'un nouveau mercenaire) */
 .mercenary-profile {
   max-width: 600px;
@@ -154,8 +171,15 @@ form {
 
   .btn-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 15px;
     margin-top: 20px;
+  }
+
+  .back-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
   }
 }
 
@@ -229,4 +253,18 @@ form {
 .mercenary-card p {
   font-size: 14px;
   color: #666;
+}
+
+/* Assurer une marge pour éviter que le contenu soit caché sous la navbar */
+.container {
+  margin-top: 80px; /* Ajuster selon la hauteur de la navbar */
+  padding: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-header {
+  margin-bottom: 20px; /* Ajout de l'espace sous le H1 */
+  text-align: center; /* Centre le titre */
 }
