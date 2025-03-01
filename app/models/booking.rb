@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :mercenary
+  has_one :review
 
   validates :mission_purpose, presence: true
   validates :mission_place, presence: true
