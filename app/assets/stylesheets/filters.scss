@@ -6,7 +6,10 @@
   justify-content: space-between;
   gap: 15px;
   padding: 15px;
-  background: white;
+  background-image: asset-url("banner.png");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("banner.png");
+  background-size: cover;
+  background-position: center -120px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%; /* Largeur maximale */
@@ -15,6 +18,7 @@
 }
 
 .filter-form {
+  background: none;
   width: 100%;
 }
 
@@ -32,6 +36,7 @@
 }
 
 .filter-form label {
+  color: white;
   font-weight: bold;
 }
 

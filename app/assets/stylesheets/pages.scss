@@ -2,7 +2,7 @@
 
 .home-container {
   text-align: center;
-  background-image: asset-url('mercenaries-background.jpeg');
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('mercenaries-background.jpeg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -53,6 +53,7 @@
   background-color: #f4f4f4;
 
   h2 {
+    color: white;
     font-size: 2rem;
     margin-bottom: 20px;
   }
@@ -65,7 +66,7 @@
   }
 
   .mercenary-card {
-    background: white;
+    background: #1F3148;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -85,13 +86,15 @@
     }
 
     h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: white;
       font-size: 1.5rem;
       margin: 10px 0;
     }
 
     p {
       font-size: 1rem;
-      color: #555;
+      color: #ffffff;
     }
 
     .details-button {
@@ -112,11 +115,16 @@
 }
 
 #mercenaryCarousel {
+  background-color: #0e1620;
   max-width: 900px;
   margin: auto;
 
   .carousel-item {
     padding: 20px;
+  }
+
+  .carousel-control-next {
+    right: -53px;
   }
 
   .img-fluid {
@@ -133,7 +141,7 @@
 }
 
 .mercenaries-preview {
-  background: rgb(255, 255, 255);
+  background-color: #0e1620;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   padding: 40px;
@@ -147,10 +155,10 @@
   align-items: center;
   width: 280px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  background: #1F3148;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
   padding: 15px;
   overflow: hidden;
   text-align: center;
@@ -234,18 +242,17 @@
 }
 
 .btn-primary {
-  background-color: #ff4500;
-  border: none;
+  background-color: transparent;
+  border: 1px solid white;
   font-size: 1.2rem;
   font-weight: bold;
-  text-transform: uppercase;
   padding: 12px 24px;
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
 }
 
 .btn-primary:hover {
-  background-color: #011c98;
+  background-color: transparent;
   transform: scale(1.05);
 }
 
@@ -255,14 +262,14 @@
 }
 
 .mercenary-card h3 {
-  color: #222;
+  color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 .mercenary-card p {
   font-size: 1.1rem;
-  color: #444;
+  color: #ffffff;
 }
 
 .home-container {
@@ -276,7 +283,7 @@
   left: 0;
   width: 100%;
   height: 100px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgb(255, 248, 248));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #0e1620);
 }
 
 .home-container .btn-primary {

@@ -68,15 +68,15 @@ form {
   transition: all 0.3s ease-in-out;
 }
 
-.btn-primary {
-  background-color: #ff4b2b;
-  color: white;
+// .btn-primary {
+//   background-color: #ff4b2b;
+//   color: white;
 
-  &:hover {
-    background-color: #ff0000;
-    color: white;
-  }
-}
+//   &:hover {
+//     background-color: #ff0000;
+//     color: white;
+//   }
+// }
 
 .btn-danger {
   background-color: #d32f2f;
@@ -110,14 +110,14 @@ form {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
-  background: #fff;
+  background: #1F3148;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 
   h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #222;
+    color: #ffffff;
     text-align: center;
     margin-bottom: 20px;
   }
@@ -125,24 +125,24 @@ form {
   h2 {
     font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
   }
 
   h3 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #444;
+    color: #ffffff;
     margin-bottom: 15px;
   }
 
   p {
     font-size: 1rem;
-    color: #444;
+    color: #ffffff;
     margin: 10px 0;
   }
 
   strong {
-    color: #000;
+    color: white;
   }
 
   img {
@@ -196,7 +196,7 @@ form {
   h1 {
     font-size: 1.8rem;
     text-align: center;
-    color: #222;
+    color: #ffffff;
     margin-bottom: 20px;
   }
 
@@ -231,10 +231,9 @@ form {
 
 .mercenary-card {
   background: #ffffff;
-  border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(189, 184, 184, 0.1);
   text-align: center;
 }
 
@@ -246,6 +245,8 @@ form {
 }
 
 .mercenary-card h2 {
+  color: white;
+  font-weight: bold;
   font-size: 20px;
   margin: 10px 0;
 }
@@ -267,4 +268,9 @@ form {
 .page-header {
   margin-bottom: 20px; /* Ajout de l'espace sous le H1 */
   text-align: center; /* Centre le titre */
+
+  h1 {
+    font-weight: bold;
+    color: #ffffff;
+  }
 }
