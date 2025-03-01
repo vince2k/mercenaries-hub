@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   resources :bookings, only: [:index]
   resources :mercenaries, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+    collection do
+      get :my_mercenaries
+    end
     resources :bookings, only: [:new, :create]
   end
 

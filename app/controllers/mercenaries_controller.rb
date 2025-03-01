@@ -40,6 +40,10 @@ class MercenariesController < ApplicationController
     redirect_to mercenaries_path, notice: "Le mercenaire a été supprimé avec succès.", status: :see_other
   end
 
+  def my_mercenaries
+    @mercenaries = current_user.mercenaries
+    render :index
+  end
 
   private
 
@@ -55,4 +59,5 @@ class MercenariesController < ApplicationController
   def mercenary_params
     params.require(:mercenary).permit(:name, :bio, :picture, :price_per_day, :address, :specialty)
   end
+
 end
