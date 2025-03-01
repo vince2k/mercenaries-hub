@@ -1,21 +1,66 @@
 <h1>Liste des mercenaires disponibles</h1>
 
-<div class="mercenary-list">
-  <% @mercenaries.each do |mercenary| %>
-  <div class="mercenary-card">
-    <% if mercenary.picture.attached? %>
-      <%= cl_image_tag mercenary.picture.key %>
-    <% end %>
-    <h2><%= mercenary.name %></h2>
-    <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
-    <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
-    <p><strong>Localisation :</strong> <%= mercenary.address %></p>
-    <p><%= mercenary.bio.truncate(100) %></p>
+<!-- Formulaire de filtrage -->
+<div class="filters-container">
+  <%= form_with(url: mercenaries_path, method: :get, local: true, class: "filter-form") do %>
+    <div class="row">
+      <!-- Spécialité -->
+      <div class="col-md-3">
+        <%= label_tag :specialty, "Spécialité :" %>
+        <%= select_tag :specialty, options_from_collection_for_select(Mercenary.distinct.pluck(:specialty), :to_s, :to_s, params[:specialty]), include_blank: "Toutes", class: "form-control" %>
+      </div>
 
-    <%= link_to "Voir plus", mercenary_path(mercenary), class: "btn btn-primary" %>
-    <%= link_to "Réserver", new_mercenary_booking_path(mercenary), class:"btn btn-danger" %>
+      <!-- Date de début -->
+      <div class="col-md-2">
+        <%= label_tag :start_date, "Date de début :" %>
+        <%= date_field_tag :start_date, params[:start_date], class: "form-control" %>
+      </div>
+
+      <!-- Date de fin -->
+      <div class="col-md-2">
+        <%= label_tag :end_date, "Date de fin :" %>
+        <%= date_field_tag :end_date, params[:end_date], class: "form-control" %>
+      </div>
+
+      <!-- Trier par -->
+      <div class="col-md-2">
+        <%= label_tag :order, "Trier par :" %>
+        <%= select_tag :order, options_for_select([["Prix croissant", "price_asc"], ["Prix décroissant", "price_desc"]], params[:order]), include_blank: "Aucun tri", class: "form-control" %>
+      </div>
+
+      <!-- Bouton Filtrer -->
+      <div class="col-md-1 d-flex align-items-end">
+        <%= submit_tag "Filtrer", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Liste des mercenaires -->
+<% if @mercenaries.any? %>
+  <div class="mercenary-list">
+    <% @mercenaries.each do |mercenary| %>
+      <div class="mercenary-card">
+        <!-- Image -->
+        <% if mercenary.picture.attached? %>
+          <%= cl_image_tag mercenary.picture.key, class: "mercenary-image" %>
+        <% end %>
+
+        <!-- Informations -->
+        <h2><%= mercenary.name %></h2>
+        <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
+        <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
+        <p><strong>Localisation :</strong> <%= mercenary.address %></p>
+        <p><%= mercenary.bio.truncate(100) %></p>
+
+        <!-- Liens d'action -->
+        <%= link_to "Voir plus", mercenary_path(mercenary), class: "btn btn-primary" %>
+        <%= link_to "Réserver", new_mercenary_booking_path(mercenary), class: "btn btn-danger" %>
+      </div>
+    <% end %>
   </div>
-  <div>
+<% else %>
+  <div class="no-mercenaries">
+    <p>Aucun mercenaire disponible...</p>
   </div>
 <% end %>
-</div>
