@@ -5,6 +5,44 @@ class MercenariesController < ApplicationController
 
   def index
     @mercenaries = Mercenary.all
+
+    # Filtrage par spécialité
+  if params[:specialty].present?
+    @mercenaries = @mercenaries.where(specialty: params[:specialty])
+  end
+
+  # Filtrage par disponibilité (période sélectionnée)
+  if params[:start_date].present? && params[:end_date].present?
+    start_date = Date.parse(params[:start_date]) rescue nil
+    end_date = Date.parse(params[:end_date]) rescue nil
+
+    if start_date && end_date
+      # Trouver les mercenaires qui n'ont AUCUNE réservation qui bloque la période sélectionnée
+      reserved_mercenaries = Booking.where("start_date <= ? AND end_date >= ?", end_date, start_date).pluck(:mercenary_id)
+      @mercenaries = @mercenaries.where.not(id: reserved_mercenaries)
+    end
+  end
+
+  # Tri par prix
+  if params[:order] == "price_asc"
+    @mercenaries = @mercenaries.order(price_per_day: :asc)
+  elsif params[:order] == "price_desc"
+    @mercenaries = @mercenaries.order(price_per_day: :desc)
+  end
+
+  # Tri par prix
+  if params[:order] == "price_asc"
+    @mercenaries = @mercenaries.order(price_per_day: :asc)
+  elsif params[:order] == "price_desc"
+    @mercenaries = @mercenaries.order(price_per_day: :desc)
+  end
+
+  # Tri par prix
+  if params[:order] == "price_asc"
+    @mercenaries = @mercenaries.order(price_per_day: :asc)
+  elsif params[:order] == "price_desc"
+    @mercenaries = @mercenaries.order(price_per_day: :desc)
+  end
   end
 
   def new
