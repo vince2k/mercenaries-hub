@@ -37,6 +37,8 @@
           </a>
 
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+              <%= link_to "Tous les mercenaires", mercenaries_path, class: "dropdown-item" %>
+              <hr>
               <%= link_to "Mes contrats", bookings_path, class: "dropdown-item" %>
               <%= link_to "Mes mercenaires", my_mercenaries_mercenaries_path, class: "dropdown-item" %>
               <%= link_to "Ajouter un mercenaire", new_mercenary_path, class: "dropdown-item" %>
