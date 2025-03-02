@@ -7,7 +7,10 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = @booking.reviews.build # Initialise avec le booking
+    @review = @booking.build_review #  @booking.build_review # Initialise avec le booking
+  end
+
+  def show
   end
 
   def create
@@ -16,7 +19,7 @@ class ReviewsController < ApplicationController
 
     # doit-on avoir un index de tout les avis que nous avons donné ?
     if @review.save
-      redirect_to reviews_path, notice: "Avis ajouté avec succès !"
+      redirect_to bookings_path, notice: "Avis ajouté avec succès !"
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,6 +46,10 @@ class ReviewsController < ApplicationController
 
   def set_booking
     @booking = Booking.find(params[:booking_id])
+  end
+
+  # pour l'edition des avis, TODO plus tard
+  def set_reviews
   end
 
   def review_params
