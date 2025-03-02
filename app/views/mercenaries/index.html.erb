@@ -1,5 +1,3 @@
-<h1>Liste des mercenaires disponibles</h1>
-
 <!-- Formulaire de filtrage -->
 <div class="filters-container">
   <%= form_with(url: mercenaries_path, method: :get, local: true, class: "filter-form") do %>
@@ -36,28 +34,31 @@
   <% end %>
 </div>
 
-<!-- Liste des mercenaires -->
-<% if @mercenaries.any? %>
-  <div class="mercenary-list">
-    <% @mercenaries.each do |mercenary| %>
-      <div class="mercenary-card">
-        <!-- Image -->
-        <% if mercenary.picture.attached? %>
-          <%= cl_image_tag mercenary.picture.key, class: "mercenary-image" %>
-        <% end %>
+<div class="mercenary-container">
+  <h1>Nos mercenaires :</h1>
+  <!-- Liste des mercenaires -->
+  <% if @mercenaries.any? %>
+    <div class="mercenary-list">
+      <% @mercenaries.each do |mercenary| %>
+        <div class="mercenary-card">
+          <!-- Image -->
+          <% if mercenary.picture.attached? %>
+            <%= cl_image_tag mercenary.picture.key, class: "mercenary-image" %>
+          <% end %>
 
-        <!-- Informations -->
-        <h2><%= mercenary.name %></h2>
-        <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
-        <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
+          <!-- Informations -->
+          <h2><%= mercenary.name %></h2>
+          <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
+          <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
 
-        <!-- Liens d'action -->
-        <%= link_to "Voir plus", mercenary_path(mercenary), class: "btn btn-primary" %>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <div class="no-mercenaries">
-    <p>Aucun mercenaire disponible...</p>
-  </div>
-<% end %>
+          <!-- Liens d'action -->
+          <%= link_to "Voir plus", mercenary_path(mercenary), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="no-mercenaries">
+      <p>Aucun mercenaire disponible...</p>
+    </div>
+  <% end %>
+</div>

@@ -13,8 +13,11 @@
 
 @import "mercenaries";
 @import "pages";
-@import "filters";
 
 body {
-  background-color: #0e1620;
+  background-color: $darker-blue;
+}
+
+h1, h2, h3, p, a {
+  color: $light-gray;
 }
