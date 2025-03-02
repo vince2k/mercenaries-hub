@@ -23,7 +23,7 @@
             <td><%= booking.end_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.mercenary.name %></td>
             <td><%= booking.total_price %> €</td>
-            <td><%= link_to "Ajouter un avis", bookings_path %></td>
+            <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
           </tr>
         <% end %>
       </tbody>
