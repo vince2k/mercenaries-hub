@@ -1,10 +1,6 @@
 <h1>Ajouter un avis</h1>
 
-<%= simple_form_for @mercenary do |form| %>
-  <div>
-    <%= form.input :name, label: "Nom du mercenaire", required: true %>
-  </div>
-
+<%= simple_form_for [@booking, @review] do |form| %>
   <div>
     <%= form.input :bio, as: :text, label: "Ajouter un avis", required: false %>
   </div>

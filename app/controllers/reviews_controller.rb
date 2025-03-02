@@ -22,6 +22,11 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    @review.destroy!
+    redirect_to bookings_path, notice: "L'avis a été supprimé avec succès.", status: :see_other
+  end
+
   # à titre d'exemple la méthode create dans le controlleur booking
   # def create
   #   @booking = @mercenary.bookings.build(booking_params) # Associe au mercenaire
@@ -43,5 +48,4 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:rating, :content)
   end
-
 end
