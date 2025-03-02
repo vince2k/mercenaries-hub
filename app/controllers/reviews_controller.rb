@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   before_action :set_booking, only: [:new, :create] # Définit @booking à partir de :booking_id
 
   def index
-    @reviews = @booking.mercenary.reviews # Toutes les revues du mercenaire
+    @reviews = Review.all # Toutes les revues
   end
 
   def new
@@ -14,15 +14,21 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = @booking.mercenary.build(review_params) # Associe au booking
-    @review.user = current_user # Associe à l’utilisateur connecté via Devise
-
-    # doit-on avoir un index de tout les avis que nous avons donné ?
+    @review = @booking.build_review(review_params)
     if @review.save
       redirect_to bookings_path, notice: "Avis ajouté avec succès !"
     else
       render :new, status: :unprocessable_entity
     end
+    # @review = @booking.build(review_params) # Associe au booking
+    # @review.user = current_user # Associe à l’utilisateur connecté via Devise
+
+    # # doit-on avoir un index de tout les avis que nous avons donné ?
+    # if @review.save
+    #   redirect_to bookings_path, notice: "Avis ajouté avec succès !"
+    # else
+    #   render :new, status: :unprocessable_entity
+    # end
   end
 
   def destroy
