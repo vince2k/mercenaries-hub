@@ -21,6 +21,9 @@ class BookingsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   # a booking can be canceled, then so are the reviews
   def destroy
   end
