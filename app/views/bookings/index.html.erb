@@ -12,6 +12,7 @@
           <th>Mercenaire</th>
           <th>Employeur</th>
           <th>Prix total</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,7 @@
             <td><%= booking.mercenary.name %></td>
             <td><%= booking.mercenary.user.email %></td>
             <td><%= booking.total_price %> €</td>
+            <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
           </tr>
         <% end %>
       </tbody>

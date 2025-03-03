@@ -59,7 +59,14 @@ class MercenariesController < ApplicationController
   end
 
   def show
-    @reviews = @mercenary.reviews if defined?(Review) # Charge les reviews si la table Review existe.
+    # on accède d'abord aux bookings de mercenary
+    @bookings = @mercenary.bookings
+    # on itere sur les revues
+    # .map car c'est un array
+    @reviews = @bookings.map {|booking| booking.review}
+    # on ignore celles qui sont vides
+    @reviews = @reviews.reject { |review| review == nil }
+    # @reviews = @mercenary.reviews if defined?(Review) # Charge les reviews si la table Review existe.
   end
 
   def edit

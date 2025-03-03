@@ -1,0 +1,15 @@
+<h1>Ajouter un avis</h1>
+
+<%= simple_form_for [@booking, @review] do |form| %>
+  <div>
+    <%= form.input :content, as: :text, label: "Ajouter un avis", required: false %>
+  </div>
+
+  <div>
+    <%= form.input :rating, as: :numeric, label: "Ajouter une note", required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Ajouter un avis", class: "btn btn-primary" %>
+  </div>
+<% end %>

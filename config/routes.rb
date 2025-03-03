@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
-  resources :bookings, only: [:index]
+  resources :bookings, only: [:index] do
+    resources :reviews, only: [:new, :create, :index]
+  end
+
   resources :mercenaries, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     collection do
       get :my_mercenaries
