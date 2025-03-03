@@ -25,9 +25,9 @@ users.each_with_index do |user, index|
 end
 puts "#{User.count} utilisateurs ajoutés à la base de données !"
 
-# Création des 40 mercenaires (noms en anglais, spécialités parfois communes, adresses crédibles)
+# Création des 39 mercenaires avec leurs URLs mises à jour
 mercenaries = [
-  # User 1 (John Doe) - 14 mercenaires
+  # User 1 (John Doe) - 13 mercenaires
   { name: "John Rambo", specialty: "Survie et guérilla", bio: "Expert en survie dans les pires conditions.", price_per_day: 1200, address: "Chamonix, France", user_id: users[0].id, photo_url: "https://img.rts.ch/articles/2019/image/jqdogq-25970995.image?w=1280&h=720" },
   { name: "Wonder Woman", specialty: "Combat mythique", bio: "Guerrière légendaire à la force surhumaine.", price_per_day: 2000, address: "Athènes, Grèce", user_id: users[0].id, photo_url: "https://www.radiofrance.fr/s3/cruiser-production/2021/10/d34e0294-c579-48f5-a6c9-1d7af3deb6c0/1200x680_1200x680-wonder-woman-1984.jpg" },
   { name: "Chuck Norris", specialty: "Combat ultime", bio: "Légende invincible du combat rapproché.", price_per_day: 1500, address: "Austin, Texas, USA", user_id: users[0].id, photo_url: "https://media.gettyimages.com/id/525603356/fr/photo/chuck-norris-poses-with-two-uzis-his-sleeveless-denim-shirt-unbuttoned-to-his-waist-publicity.jpg?s=612x612&w=gi&k=20&c=pNPFch6zbQgmYqAiIj6g8dwui09ItFllocQxWDWo5AM=" },
@@ -36,13 +36,12 @@ mercenaries = [
   { name: "Natasha Romanoff", specialty: "Infiltration et combat", bio: "Espionne agile et mortelle.", price_per_day: 1050, address: "Moscou, Russie", user_id: users[0].id, photo_url: "https://media.licdn.com/dms/image/v2/C4E12AQH5xZoisRSXwQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1555420431630?e=2147483647&v=beta&t=NOfXkQDXyOa-_FmzH2sRgPNxU5PMO0l76My_cQQx7u0" },
   { name: "Motoko Kusanagi", specialty: "Cybercombat", bio: "Cyborg experte en piratage et combat.", price_per_day: 1250, address: "Tokyo, Japon", user_id: users[0].id, photo_url: "https://cdn-www.konbini.com/files/2024/05/Feat-ghost-inf-the-shell.jpg?width=3840&quality=75&format=webp" },
   { name: "Blade", specialty: "Combat rapproché", bio: "Chasseur de vampires impitoyable.", price_per_day: 950, address: "New Orleans, Louisiane, USA", user_id: users[0].id, photo_url: "https://www.filmsfantastiques.com/wp-content/uploads/2020/09/Blade-photo-2-1024x590.jpg" },
-  { name: "Nikita", specialty: "Assassinat et espionnage", bio: "Tueuse d’élite et espionne, formée dans l’ombre pour des missions secrètes.", price_per_day: 1100, address: "Paris, France", user_id: users[2].id, photo_url: "https://cdn.artphotolimited.com/images/5ff5a529bd40b83c5a537440/1000x1000/nikita-scene-de-la-premiere-mission.jpg" },
   { name: "John Spartan", specialty: "Combat ultime", bio: "Soldat d’élite des années 90.", price_per_day: 1300, address: "Phoenix, Arizona, USA", user_id: users[0].id, photo_url: "https://static1.srcdn.com/wordpress/wp-content/uploads/2019/06/Sylvester-Stallone-as-John-Spartan-in-Demolition-Man.jpg" },
   { name: "Claire Redfield", specialty: "Survie et guérilla", bio: "Survivante face aux zombies.", price_per_day: 900, address: "Raccoon City, Missouri, USA", user_id: users[0].id, photo_url: "https://www.manga-news.com/public/2018/news_fr_08/resident-evil-re-2-claire-01.jpg" },
   { name: "Tony Stark", specialty: "Technologie et combat", bio: "Génie milliardaire avec une armure high-tech.", price_per_day: 2500, address: "New York, NY, USA", user_id: users[0].id, photo_url: "https://sm.ign.com/t/ign_fr/news/l/live-like-/live-like-tony-stark-by-renting-his-avengers-endgame-cabin_84ja.1200.jpg" },
   { name: "Jason Bourne", specialty: "Infiltration et combat", bio: "Agent amnésique aux réflexes mortels.", price_per_day: 1100, address: "Zurich, Suisse", user_id: users[0].id, photo_url: "https://static1.srcdn.com/wordpress/wp-content/uploads/2023/04/jason-bourne-in-the-bourne-identity.png" },
 
-  # User 2 (Jane Smith) - 13 mercenaires
+  # User 2 (Jane Smith) - 12 mercenaires
   { name: "OSS 117", specialty: "Espionnage et humour", bio: "Espion maladroit mais efficace.", price_per_day: 900, address: "Paris, France", user_id: users[1].id, photo_url: "https://d32gva8s8jjsl4.cloudfront.net/img/p/1/1/3/5/9/11359-cover_large.jpg" },
   { name: "Ellen Ripley", specialty: "Combat extraterrestre", bio: "Chasseuse d’aliens sans peur.", price_per_day: 850, address: "Sydney, Australie", user_id: users[1].id, photo_url: "https://www.fulguropop.com/wp-content/uploads/2020/03/aliens-1-1200x649.jpg" },
   { name: "MacGyver", specialty: "Bricolage et explosifs", bio: "Roi de l’improvisation avec des outils.", price_per_day: 650, address: "Vancouver, Canada", user_id: users[1].id, photo_url: "https://i0.wp.com/scriiipt.com/wp-content/uploads/2024/09/macgyver.png?fit=1200%2C675&ssl=1" },
@@ -52,11 +51,10 @@ mercenaries = [
   { name: "The Expendables", specialty: "Destruction massive", bio: "Équipe pour missions explosives.", price_per_day: 3500, address: "Mexico, Mexique", user_id: users[1].id, photo_url: "https://image.jeuxvideo.com/medias-md/168624/1686238626-7233-card.jpg" },
   { name: "Lara Croft", specialty: "Exploration et combat", bio: "Aventurière chasseuse de trésors.", price_per_day: 975, address: "Cusco, Pérou", user_id: users[1].id, photo_url: "https://sm.ign.com/ign_fr/news/t/tomb-raide/tomb-raider-dev-reveals-lara-crofts-official-redesign_kxdj.jpg" },
   { name: "Dom Toretto", specialty: "Conduite et chaos", bio: "Pilote expert vivant pour la famille.", price_per_day: 1200, address: "São Paulo, Brésil", user_id: users[1].id, photo_url: "https://www.booska-p.com/wp-content/uploads/2021/09/fast-and-furious-une-serie-sur-dom-toretto-sans-vin-diesel-649.jpg" },
-  { name: "Bruce Lee", specialty: "Combat rapproché", bio: "Maître des arts martiaux légendaire.", price_per_day: 1600, address: "Hong Kong, Chine", user_id: users[1].id, photo_url: "https://variety.com/wp-content/uploads/2018/07/enter-the-dragon-bruce-lee.jpg" },
   { name: "Jack Reacher", specialty: "Infiltration et combat", bio: "Ex-militaire vagabond et détective.", price_per_day: 1000, address: "Munich, Allemagne", user_id: users[1].id, photo_url: "https://www.leparisien.fr/resizer/XwbHcw-goXl2T_aaxzjSqOohNX8=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/leparisien/UV2HI3MSAFH23GWUESQ3I7DADI.jpg" },
   { name: "Indiana Jones", specialty: "Exploration et combat", bio: "Archéologue aventurier intrépide.", price_per_day: 1100, address: "Le Caire, Égypte", user_id: users[1].id, photo_url: "https://static-images.lpnt.fr/cd-cw809/images/2023/07/06/24717361lpw-24717942-mega-une-jpg_9637520.jpg" },
 
-  # User 3 (Mike Wilson) - 13 mercenaires
+  # User 3 (Mike Wilson) - 14 mercenaires
   { name: "Charlie's Angels", specialty: "Espionnage et discrétion", bio: "Trio féminin d’espionnes élégantes.", price_per_day: 2550, address: "Miami, Floride, USA", user_id: users[2].id, photo_url: "https://images.bauerhosting.com/legacy/empire-tmdb/films/4327/images/AfXk5IqMZuznjjvEkrQuzQ9A5U6.jpg?ar=16%3A9&fit=crop&crop=top&auto=format&w=1440&q=80" },
   { name: "The Suicide Squad", specialty: "Missions suicide", bio: "Groupe pour missions désespérées.", price_per_day: 2800, address: "Buenos Aires, Argentine", user_id: users[2].id, photo_url: "https://www.urban-comics.com/wp-content/uploads/2016/11/maxresdefault.jpg" },
   { name: "Sarah Connor", specialty: "Résistance et survie", bio: "Survivante déterminée face aux machines.", price_per_day: 950, address: "Las Vegas, Nevada, USA", user_id: users[2].id, photo_url: "https://focus.telerama.fr/2024/10/25/44/52/4101/2734/1200/0/60/0/48a3e0e_1729852231702-terminator-2-1991-30.jpg" },
@@ -68,16 +66,14 @@ mercenaries = [
   { name: "Katniss Everdeen", specialty: "Survie et guérilla", bio: "Archer habile et résistante.", price_per_day: 850, address: "Bogotá, Colombie", user_id: users[2].id, photo_url: "https://image.over-blog.com/BB1TH0fciX9JHAKt3XYq_-pzp8M=/filters:no_upscale()/image%2F0556198%2F20230813%2Fob_0bb9ff_katniss-again-in-new-lsquohunger-games.jpeg" },
   { name: "Bruce Wayne", specialty: "Stratégie militaire", bio: "Justicier masqué maître de la tactique.", price_per_day: 2000, address: "Gotham City, USA", user_id: users[2].id, photo_url: "https://static1.purepeople.com/articles/2/77/96/2/@/597230-christian-bale-alias-bruce-wayne-alias-580x0-3.jpg" },
   { name: "Trinity", specialty: "Cybercombat", bio: "Hacker et combattante agile.", price_per_day: 1200, address: "Berlin, Allemagne", user_id: users[2].id, photo_url: "https://www.eklecty-city.fr/wp-content/uploads/2021/04/matrix-movie-picture-06.jpg" },
-  { name: "Dwayne Johnson", specialty: "Destruction massive", bio: "Force brute et charisme explosif.", price_per_day: 1700, address: "Honolulu, Hawaï, USA", user_id: users[2].id, photo_url: "https://buzzdestars.b-cdn.net/wp-content/uploads/2023/07/dwayne-johnson-the-rock.jpg" }
+  { name: "Dwayne Johnson", specialty: "Destruction massive", bio: "Force brute et charisme explosif.", price_per_day: 1700, address: "Honolulu, Hawaï, USA", user_id: users[2].id, photo_url: "https://buzzdestars.b-cdn.net/wp-content/uploads/2023/07/dwayne-johnson-the-rock.jpg" },
+  { name: "Nikita", specialty: "Assassinat et espionnage", bio: "Tueuse d’élite et espionne, formée dans l’ombre pour des missions secrètes.", price_per_day: 1100, address: "Paris, France", user_id: users[2].id, photo_url: "https://cdn.artphotolimited.com/images/5ff5a529bd40b83c5a537440/1000x1000/nikita-scene-de-la-premiere-mission.jpg" }
 ]
 
 # Sauvegarde des mercenaires avec gestion des erreurs pour les images
 mercenaries.each_with_index do |mercenary_data, index|
   begin
-    # Créer le mercenaire sans image d'abord
     mercenary = Mercenary.new(mercenary_data.except(:photo_url))
-
-    # Tenter de télécharger et attacher l'image
     begin
       downloaded_image = URI.open(mercenary_data[:photo_url])
       mercenary.picture.attach(io: downloaded_image, filename: "#{mercenary_data[:name].parameterize}.jpg", content_type: "image/jpeg")
@@ -85,8 +81,6 @@ mercenaries.each_with_index do |mercenary_data, index|
     rescue OpenURI::HTTPError, Errno::ENOENT, SocketError => e
       puts "Erreur lors du téléchargement de l'image pour #{mercenary_data[:name]} : #{e.message}. Mercenaire créé sans image."
     end
-
-    # Sauvegarder le mercenaire (avec ou sans image)
     mercenary.save!
     puts "Mercenaire #{index + 1} (#{mercenary_data[:name]}) créé avec succès !"
   rescue StandardError => e
@@ -95,25 +89,25 @@ mercenaries.each_with_index do |mercenary_data, index|
 end
 puts "#{Mercenary.count} mercenaires ajoutés à la base de données !"
 
-# Création des bookings avec reviews
+# Création des bookings avec reviews (aucun utilisateur ne réserve son propre mercenaire)
 bookings = [
-  # John Doe
-  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "John Rambo").id, start_date: Date.today - 5, end_date: Date.today - 2, total_price: 3 * 1200, mission_purpose: "Survie en forêt hostile", mission_place: "Massif des Vosges", review: { rating: 5, content: "Incroyable, il m’a sauvé la vie !" } },
-  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "Wonder Woman").id, start_date: Date.today + 1, end_date: Date.today + 3, total_price: 2 * 2000, mission_purpose: "Récupérer un artefact", mission_place: "Corse", review: { rating: 4, content: "Très efficace, mais un peu trop sérieuse." } },
-  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "Chuck Norris").id, start_date: Date.today - 10, end_date: Date.today - 8, total_price: 2 * 1500, mission_purpose: "Combat contre une milice", mission_place: "Pyrénées", review: { rating: 5, content: "Un regard, et tout était fini !" } },
-  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "Blade").id, start_date: Date.today - 3, end_date: Date.today - 1, total_price: 2 * 950, mission_purpose: "Chasse nocturne", mission_place: "Paris", review: { rating: 4, content: "Silencieux et efficace." } },
+  # John Doe (users[0]) réserve des mercenaires de Jane Smith (users[1]) et Mike Wilson (users[2])
+  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "OSS 117").id, start_date: Date.today - 5, end_date: Date.today - 2, total_price: 3 * 900, mission_purpose: "Espionnage discret", mission_place: "Côte d’Azur", review: { rating: 3, content: "Drôle mais pas très discret." } },
+  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "Ellen Ripley").id, start_date: Date.today + 2, end_date: Date.today + 5, total_price: 3 * 850, mission_purpose: "Chasse aux créatures", mission_place: "Alpes", review: { rating: 5, content: "Elle a tout géré sans paniquer." } },
+  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "Charlie's Angels").id, start_date: Date.today - 4, end_date: Date.today - 1, total_price: 3 * 2550, mission_purpose: "Infiltration élégante", mission_place: "Paris", review: { rating: 5, content: "Classe et efficacité !" } },
+  { user_id: users[0].id, mercenary_id: Mercenary.find_by(name: "Ethan Hunt").id, start_date: Date.today - 2, end_date: Date.today + 1, total_price: 3 * 1100, mission_purpose: "Vol de données", mission_place: "Bruxelles", review: { rating: 4, content: "Mission impossible réussie." } },
 
-  # Jane Smith
-  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "OSS 117").id, start_date: Date.today - 3, end_date: Date.today - 1, total_price: 2 * 900, mission_purpose: "Espionnage discret", mission_place: "Côte d’Azur", review: { rating: 3, content: "Drôle mais pas très discret." } },
-  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "Ellen Ripley").id, start_date: Date.today + 2, end_date: Date.today + 5, total_price: 3 * 850, mission_purpose: "Chasse aux créatures", mission_place: "Alpes", review: { rating: 5, content: "Elle a tout géré sans paniquer." } },
-  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "MacGyver").id, start_date: Date.today - 7, end_date: Date.today - 4, total_price: 3 * 650, mission_purpose: "Sabotage artisanal", mission_place: "Bretagne", review: { rating: 4, content: "Génial avec un couteau suisse !" } },
-  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "Lara Croft").id, start_date: Date.today - 2, end_date: Date.today, total_price: 2 * 975, mission_purpose: "Fouilles archéologiques", mission_place: "Provence", review: { rating: 5, content: "Une vraie aventurière !" } },
+  # Jane Smith (users[1]) réserve des mercenaires de John Doe (users[0]) et Mike Wilson (users[2])
+  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "John Rambo").id, start_date: Date.today - 5, end_date: Date.today - 2, total_price: 3 * 1200, mission_purpose: "Survie en forêt hostile", mission_place: "Massif des Vosges", review: { rating: 5, content: "Incroyable, il m’a sauvé la vie !" } },
+  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "Wonder Woman").id, start_date: Date.today + 1, end_date: Date.today + 3, total_price: 2 * 2000, mission_purpose: "Récupérer un artefact", mission_place: "Corse", review: { rating: 4, content: "Très efficace, mais un peu trop sérieuse." } },
+  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "The Suicide Squad").id, start_date: Date.today + 3, end_date: Date.today + 6, total_price: 3 * 2800, mission_purpose: "Mission désespérée", mission_place: "Lille", review: { rating: 3, content: "Ça a marché, mais quel chaos !" } },
+  { user_id: users[1].id, mercenary_id: Mercenary.find_by(name: "Mad Max").id, start_date: Date.today - 5, end_date: Date.today - 3, total_price: 2 * 875, mission_purpose: "Course dans le désert", mission_place: "Sahara", review: { rating: 5, content: "Un pilote hors pair !" } },
 
-  # Mike Wilson
-  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "Charlie's Angels").id, start_date: Date.today - 4, end_date: Date.today - 1, total_price: 3 * 2550, mission_purpose: "Infiltration élégante", mission_place: "Paris", review: { rating: 5, content: "Classe et efficacité !" } },
-  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "The Suicide Squad").id, start_date: Date.today + 3, end_date: Date.today + 6, total_price: 3 * 2800, mission_purpose: "Mission désespérée", mission_place: "Lille", review: { rating: 3, content: "Ça a marché, mais quel chaos !" } },
-  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "Ethan Hunt").id, start_date: Date.today - 2, end_date: Date.today + 1, total_price: 3 * 1100, mission_purpose: "Vol de données", mission_place: "Bruxelles", review: { rating: 4, content: "Mission impossible réussie." } },
-  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "Mad Max").id, start_date: Date.today - 5, end_date: Date.today - 3, total_price: 2 * 875, mission_purpose: "Course dans le désert", mission_place: "Sahara", review: { rating: 5, content: "Un pilote hors pair !" } }
+  # Mike Wilson (users[2]) réserve des mercenaires de John Doe (users[0]) et Jane Smith (users[1])
+  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "Chuck Norris").id, start_date: Date.today - 10, end_date: Date.today - 8, total_price: 2 * 1500, mission_purpose: "Combat contre une milice", mission_place: "Pyrénées", review: { rating: 5, content: "Un regard, et tout était fini !" } },
+  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "Blade").id, start_date: Date.today - 3, end_date: Date.today - 1, total_price: 2 * 950, mission_purpose: "Chasse nocturne", mission_place: "Paris", review: { rating: 4, content: "Silencieux et efficace." } },
+  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "MacGyver").id, start_date: Date.today - 7, end_date: Date.today - 4, total_price: 3 * 650, mission_purpose: "Sabotage artisanal", mission_place: "Bretagne", review: { rating: 4, content: "Génial avec un couteau suisse !" } },
+  { user_id: users[2].id, mercenary_id: Mercenary.find_by(name: "Lara Croft").id, start_date: Date.today - 2, end_date: Date.today, total_price: 2 * 975, mission_purpose: "Fouilles archéologiques", mission_place: "Provence", review: { rating: 5, content: "Une vraie aventurière !" } }
 ]
 
 # Sauvegarde des bookings et ajout des reviews
