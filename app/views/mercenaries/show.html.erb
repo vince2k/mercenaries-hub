@@ -35,13 +35,13 @@
       </div>
     <% else %>
       <div class="btn-container">
-        <%= link_to "Réserver", new_mercenary_booking_path(@mercenary), class: "btn btn-primary" %>
+        <%= link_to "Recruter", new_mercenary_booking_path(@mercenary), class: "btn btn-danger" %>
       </div>
     <% end %>
 
     <!-- Ce bouton est accessible à tous -->
     <div class="back-button">
-      <%= link_to "Retour à la liste", mercenaries_path, class: "btn btn-secondary" %>
+      <%= link_to "Retour à la liste", mercenaries_path, class: "btn btn-primary" %>
     </div>
  </div>
 </div>

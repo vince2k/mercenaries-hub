@@ -1,6 +1,12 @@
 .navbar {
   justify-content: space-between;
   background-color: #1F1D1B;
+
+  .navbar-main-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
 }
 
 .navbar .navbar-collapse {

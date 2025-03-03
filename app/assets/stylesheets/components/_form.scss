@@ -1,0 +1,55 @@
+form {
+  max-width: 450px; // Remplace width
+  width: 100%; // S’adapte aux petits écrans
+  margin: 40px auto;
+  padding: 30px;
+  background-color: $dark-blue;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: $light-gray;
+
+  .form-group {
+    label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+    }
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .custom-file-input {
+    width: 100%;
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+  input[type="submit"] {
+    background-color: $danger;
+    color: $light-gray;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $danger-hover;
+      color: $light-gray;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="text-center">Réserver <%= @mercenary.name %></h2>
+  <h2 class="text-center">Engager <%= @mercenary.name %></h2>
 
   <%= simple_form_for [@mercenary,@booking] do |form| %>
     <div>
@@ -19,7 +19,7 @@
     </div>
 
     <div>
-      <%= form.submit "Reserver", class: "btn btn-primary" %>
+      <%= form.submit "Recruter !", class: "btn btn-danger" %>
     </div>
   <% end %>
 

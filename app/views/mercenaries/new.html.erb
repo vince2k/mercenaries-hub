@@ -1,31 +1,33 @@
-<h1>Ajouter un mercenaire</h1>
+<div class="container">
+  <h2 class="text-center">Ajouter un mercenaire</h2>
 
-<%= simple_form_for @mercenary do |form| %>
-  <div>
-    <%= form.input :name, label: "Nom du mercenaire", required: true %>
-  </div>
+  <%= simple_form_for @mercenary do |form| %>
+    <div>
+      <%= form.input :name, label: "Nom du mercenaire", required: true %>
+    </div>
 
-  <div>
-    <%= form.input :bio, as: :text, label: "Biographie", required: false %>
-  </div>
+    <div>
+      <%= form.input :bio, as: :text, label: "Biographie", required: false %>
+    </div>
 
-  <div>
-    <%= form.input :picture, as: :file, label: "Télécharger une photo", input_html: { class: "custom-file-input" } %>
-  </div>
+    <div>
+      <%= form.input :picture, as: :file, label: "Télécharger une photo", input_html: { class: "custom-file-input" } %>
+    </div>
 
-  <div>
-    <%= form.input :price_per_day, label: "Tarif journalier (€)", required: true %>
-  </div>
+    <div>
+      <%= form.input :price_per_day, label: "Tarif journalier (€)", required: true %>
+    </div>
 
-  <div>
-    <%= form.input :address, label: "Adresse", required: true %>
-  </div>
+    <div>
+      <%= form.input :address, label: "Adresse", required: true %>
+    </div>
 
-  <div>
-    <%= form.input :specialty, label: "Spécialité", required: true %>
-  </div>
+    <div>
+      <%= form.input :specialty, label: "Spécialité", required: true %>
+    </div>
 
-  <div>
-    <%= form.submit "Ajouter le mercenaire", class: "btn btn-primary" %>
-  </div>
-<% end %>
+    <div>
+      <%= form.submit "Ajouter le mercenaire", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
