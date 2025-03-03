@@ -49,7 +49,7 @@
           <% if mercenary.picture.attached? %>
             <%= cl_image_tag mercenary.picture.key, class: "mercenary-image", alt: "Photo de #{mercenary.name}" %>
           <% else %>
-            <%= image_tag "mercenary_default", class: "mercenary-image", alt: "Mercenaire par défaut" %>
+            <%= image_tag "logo", class: "mercenary-image", alt: "Mercenaire par défaut" %>
           <% end %>
 
           <!-- Informations -->
