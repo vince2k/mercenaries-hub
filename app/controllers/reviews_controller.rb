@@ -7,14 +7,21 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = @booking.build_review #  @booking.build_review # Initialise avec le booking
+    # alternative à la ligne @review = @booking.build_review
+    @review = Review.new
+
+    # @review = @booking.build_review #  @booking.build_review # Initialise avec le booking
   end
 
   def show
   end
 
   def create
-    @review = @booking.build_review(review_params)
+    @review = Review.new(review_params)
+    @review.booking = @booking
+
+    # on part du booking puis on cree lka revue, alternative aux deux lignes plus haut: @review = @booking.build_review(review_params)
+    # @review = @booking.build_review(review_params)
     if @review.save
       redirect_to bookings_path, notice: "Avis ajouté avec succès !"
     else
