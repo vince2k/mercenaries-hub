@@ -10,6 +10,7 @@
           <th>Date de début</th>
           <th>Date de fin</th>
           <th>Mercenaire</th>
+          <th>Employeur</th>
           <th>Prix total</th>
         </tr>
       </thead>
@@ -21,6 +22,7 @@
             <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.end_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.mercenary.name %></td>
+            <td><%= booking.mercenary.user.email %></td>
             <td><%= booking.total_price %> €</td>
           </tr>
         <% end %>
@@ -30,5 +32,38 @@
     <p>Vous n’avez pas encore de réservations.</p>
   <% end %>
 
-  <%= link_to "Réserver un mercenaire", mercenaries_path, class: "btn btn-primary" %>
+  <%= link_to "Réserver un mercenaire", mercenaries_path, class: "mb-5 btn btn-primary" %>
+
+   <h2>Mes demandes de recrutement</h2>
+
+  <% if @recruitment_requests.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mission</th>
+          <th>Lieu</th>
+          <th>Date de début</th>
+          <th>Date de fin</th>
+          <th>Mercenaire</th>
+          <th>Demandeur</th>
+          <th>Prix total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recruitment_requests.each do |request| %>
+          <tr>
+            <td><%= request.mission_purpose %></td>
+            <td><%= request.mission_place %></td>
+            <td><%= request.start_date.strftime("%d/%m/%Y") %></td>
+            <td><%= request.end_date.strftime("%d/%m/%Y") %></td>
+            <td><%= request.mercenary.name %></td>
+            <td><%= request.user.email %></td>
+            <td><%= request.total_price %> €</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Aucune demande de recrutement pour vos mercenaires pour le moment.</p>
+  <% end %>
 </div>

@@ -4,6 +4,7 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = current_user.bookings # Toutes les réservations de l'utilisateur connecté
+    @recruitment_requests = Booking.joins(:mercenary).where(mercenaries: { user_id: current_user.id }).includes(:user)
   end
 
   def new
