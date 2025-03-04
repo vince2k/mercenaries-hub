@@ -23,7 +23,7 @@
             <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.end_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.mercenary.name %></td>
-            <td><%= booking.mercenary.user.email %></td>
+            <td><%= booking.mercenary.user.nickname %></td>
             <td><%= booking.total_price %> €</td>
             <% if booking.review.nil? %>
               <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
@@ -63,7 +63,7 @@
             <td><%= request.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= request.end_date.strftime("%d/%m/%Y") %></td>
             <td><%= request.mercenary.name %></td>
-            <td><%= request.user.email %></td>
+            <td><%= request.user.nickname %></td>
             <td><%= request.total_price %> €</td>
           </tr>
         <% end %>
