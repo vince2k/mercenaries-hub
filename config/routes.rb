@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     collection do
       get :my_mercenaries
     end
-    resources :bookings, only: [:new, :create]
+    resources :bookings, only: [:new, :create, :edit, :update]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
