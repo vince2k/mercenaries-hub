@@ -1,17 +1,4 @@
 <div class="container">
   <h1 class="text-center">Déposer un avis sur la mission de <%= @booking.mercenary.name %></h1>
-
-  <%= simple_form_for [@booking, @review] do |form| %>
-    <div>
-      <%= form.input :content, as: :text, label: "Ajouter un avis", required: false %>
-    </div>
-
-    <div>
-      <%= form.input :rating, as: :numeric, label: "Ajouter une note de 1 à 5", required: true %>
-    </div>
-
-    <div>
-      <%= form.submit "Ajouter un avis", class: "btn btn-primary" %>
-    </div>
-  <% end %>
+  <%= render "form"%>
 </div>

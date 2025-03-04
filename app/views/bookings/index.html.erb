@@ -25,7 +25,11 @@
             <td><%= booking.mercenary.name %></td>
             <td><%= booking.mercenary.user.email %></td>
             <td><%= booking.total_price %> €</td>
-            <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
+            <% if booking.review.nil? %>
+              <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
+            <% else %>
+              <td><%= link_to "Modifier l'avis",  edit_booking_review_path(booking_id: booking.id, id: booking.review.id) %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
