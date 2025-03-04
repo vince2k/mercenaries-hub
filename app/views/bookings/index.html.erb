@@ -18,14 +18,18 @@
       <tbody>
         <% @bookings.each do |booking| %>
           <tr>
-            <td><%= booking.mission_purpose %></td>
+            <td><%= link_to booking.mission_purpose, edit_mercenary_booking_path(booking.mercenary, booking) %></td>
             <td><%= booking.mission_place %></td>
             <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.end_date.strftime("%d/%m/%Y") %></td>
-            <td><%= booking.mercenary.name %></td>
-            <td><%= booking.mercenary.user.email %></td>
+            <td><%= link_to booking.mercenary.name, mercenary_path(booking.mercenary) %></td>
+            <td><%= booking.mercenary.user.nickname %></td>
             <td><%= booking.total_price %> €</td>
-            <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
+            <% if booking.review.nil? %>
+              <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
+            <% else %>
+              <td><%= link_to "Modifier l'avis",  edit_booking_review_path(booking_id: booking.id, id: booking.review.id) %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -58,8 +62,8 @@
             <td><%= request.mission_place %></td>
             <td><%= request.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= request.end_date.strftime("%d/%m/%Y") %></td>
-            <td><%= request.mercenary.name %></td>
-            <td><%= request.user.email %></td>
+            <td><%= link_to request.mercenary.name, mercenary_path(request.mercenary) %></td>
+            <td><%= request.user.nickname %></td>
             <td><%= request.total_price %> €</td>
           </tr>
         <% end %>

@@ -1,26 +1,6 @@
 <div class="container">
-  <h2 class="text-center">Engager <%= @mercenary.name %></h2>
+  <h1 class="text-center">Engager <%= @mercenary.name %></h1>
 
-  <%= simple_form_for [@mercenary,@booking] do |form| %>
-    <div>
-      <%= form.input :mission_purpose, label: "Mission du mercenaire", required: true %>
-    </div>
-
-    <div>
-      <%= form.input :mission_place, label: "Emplacement de la cible", required: true %>
-    </div>
-
-    <div>
-      <%= form.input :start_date, html5: true, label: "Date de début" %>
-    </div>
-
-    <div>
-      <%= form.input :end_date, html5: true, label: "Date de fin" %>
-    </div>
-
-    <div>
-      <%= form.submit "Recruter !", class: "btn btn-danger" %>
-    </div>
-  <% end %>
+  <%= render "form" %>
 
 </div>

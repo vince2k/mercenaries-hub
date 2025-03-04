@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :index]
-  before_action :set_booking, only: [:new, :create] # Définit @booking à partir de :booking_id
+  before_action :authenticate_user!, only: [:new, :create, :index, :new, :create]
+  before_action :set_booking, only: [:new, :create, :edit] # Définit @booking à partir de :booking_id
+  before_action :set_review, only: [:edit, :update, :destroy] # Définit @review à partir de :id
 
   def index
     @reviews = Review.all # Toutes les revues
@@ -38,6 +39,18 @@ class ReviewsController < ApplicationController
     # end
   end
 
+  def edit
+  end
+
+  def update
+    if @review.update(review_params)
+      redirect_to bookings_path, notice: "L'avis a été modifié avec succès.", status: :see_other
+    else
+      render :edit, status: :unprocessable_entity
+    end
+
+  end
+
   def destroy
     @review.destroy!
     redirect_to bookings_path, notice: "L'avis a été supprimé avec succès.", status: :see_other
@@ -62,7 +75,8 @@ class ReviewsController < ApplicationController
   end
 
   # pour l'edition des avis, TODO plus tard
-  def set_reviews
+  def set_review
+    @review = Review.find(params[:id])
   end
 
   def review_params

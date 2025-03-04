@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :index]
-  before_action :set_mercenary, only: [:new, :create] # Définit @mercenary à partir de :mercenary_id
+  before_action :set_mercenary, only: [:new, :create, :edit, :update] # Définit @mercenary à partir de :mercenary_id
+  before_action :set_booking, only: [:edit, :update, :destroy] # Définit @booking à partir de :id
 
   def index
     @bookings = current_user.bookings # Toutes les réservations de l'utilisateur connecté
@@ -25,6 +26,14 @@ class BookingsController < ApplicationController
   def edit
   end
 
+  def update
+    if @booking.update(booking_params)
+      redirect_to bookings_path, notice: "Le contrat a été mis à jour avec succès."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   # a booking can be canceled, then so are the reviews
   def destroy
     @booking.destroy!
@@ -32,6 +41,10 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
 
   def set_mercenary
     @mercenary = Mercenary.find(params[:mercenary_id])
