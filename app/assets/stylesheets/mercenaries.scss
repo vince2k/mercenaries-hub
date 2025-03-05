@@ -1,7 +1,5 @@
 .mercenary-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -81,9 +79,9 @@
 
 .mercenary-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  width: 60%;
+  padding: 20px;
 }
 
 
@@ -106,36 +104,22 @@
     // color: #ffffff;
   }
 }
-
-.mercenary-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.mercenary-card {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  color: white;
-}
-
 #map {
-  height: 500px; /* Ajuste selon tes besoins */
+  height: 500px;
   width: 500px;
+  margin-right: 100px;
 }
 
 .map-container {
-  width: 100%;
-  height: 500px; /* Assure-toi que la carte ne disparaisse pas */
   border-radius: 10px;
   overflow: hidden;
+  position: sticky;
+  top: 80px;
+  padding-right: 50px;
 }
 
-.mercenaries-map-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+.mapboxgl-popup-content {
+  background-color: rgba(55, 58, 74, 0.9);
+  border-radius: 8px;
+  padding: 10px;
 }

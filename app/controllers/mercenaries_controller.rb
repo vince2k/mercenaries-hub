@@ -45,13 +45,16 @@ class MercenariesController < ApplicationController
   end
 
   # Génération des marqueurs pour la carte
-  @markers = @mercenaries.geocoded.map do |mercenary|
-    {
-      lat: mercenary.latitude,
-      lng: mercenary.longitude,
-      info_window: render_to_string(partial: "info_window", locals: { mercenary: mercenary })
-    }
-  end
+  # Convertir les adresses en latitude/longitude si elles existent
+  @markers = @mercenaries.map do |mercenary|
+    if mercenary.latitude.present? && mercenary.longitude.present?
+      {
+        lat: mercenary.latitude,
+        lng: mercenary.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { mercenary: mercenary })
+      }
+    end
+  end.compact # On enlève les mercenaires sans adresse
 end
 
   def new

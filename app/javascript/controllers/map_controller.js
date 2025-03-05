@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus"
-import mapboxgl from "mapbox-gl"
+import { Controller } from "@hotwired/stimulus";
+import mapboxgl from "mapbox-gl";
 
 export default class extends Controller {
   static values = {
@@ -8,7 +8,7 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log("Clé API Mapbox : ", this.apiKeyValue);
+    console.log("Map controller connected"); // Debug
 
     mapboxgl.accessToken = this.apiKeyValue;
 
@@ -23,8 +23,11 @@ export default class extends Controller {
 
   #addMarkersToMap() {
     this.markersValue.forEach(marker => {
+      const popup = new mapboxgl.Popup().setHTML(marker.info_window);
+
       new mapboxgl.Marker()
         .setLngLat([marker.lng, marker.lat])
+        .setPopup(popup)
         .addTo(this.map);
     });
   }
