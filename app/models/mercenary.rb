@@ -6,4 +6,7 @@ class Mercenary < ApplicationRecord
   has_one_attached :picture
 
   validates :name, :specialty, :price_per_day, presence: true
+
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 end
