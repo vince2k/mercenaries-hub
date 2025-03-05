@@ -43,7 +43,16 @@ class MercenariesController < ApplicationController
   elsif params[:order] == "price_desc"
     @mercenaries = @mercenaries.order(price_per_day: :desc)
   end
+
+  # Génération des marqueurs pour la carte
+  @markers = @mercenaries.geocoded.map do |mercenary|
+    {
+      lat: mercenary.latitude,
+      lng: mercenary.longitude,
+      info_window: render_to_string(partial: "info_window", locals: { mercenary: mercenary })
+    }
   end
+end
 
   def new
     @mercenary = Mercenary.new
@@ -104,5 +113,4 @@ class MercenariesController < ApplicationController
   def mercenary_params
     params.require(:mercenary).permit(:name, :bio, :picture, :price_per_day, :address, :specialty)
   end
-
 end

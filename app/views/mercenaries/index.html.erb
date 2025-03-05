@@ -34,35 +34,38 @@
   <% end %>
 </div>
 
-<div class="mercenary-container">
-  <!-- Liste des mercenaires -->
-  <% if @mercenaries.any? %>
-    <% if current_page?(my_mercenaries_mercenaries_path) %>
-      <h1>Mes mercenaires :</h1>
-    <% else %>
-      <h1>Nos mercenaires :</h1>
-    <% end %>
-    <div class="mercenary-list">
-      <% @mercenaries.each do |mercenary| %>
-        <div class="mercenary-card">
-          <!-- Image -->
-          <% if mercenary.picture.attached? %>
-            <%= cl_image_tag mercenary.picture.key, class: "mercenary-image", alt: "Photo de #{mercenary.name}" %>
-          <% end %>
-
-          <!-- Informations -->
-          <h2><%= mercenary.name %></h2>
-          <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
-          <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
-
-          <!-- Liens d'action -->
-          <%= link_to "Voir plus", mercenary_path(mercenary), class: "btn btn-primary" %>
-        </div>
-      <% end %>
+<div class="container mt-4">
+  <div class="row">
+    <!-- Colonne des mercenaires (Gauche) -->
+    <div class="col-md-8">
+      <div class="mercenary-container">
+        <% if @mercenaries.any? %>
+          <h1>Nos mercenaires :</h1>
+          <div class="mercenary-list d-flex flex-wrap">
+            <% @mercenaries.each do |mercenary| %>
+              <div class="mercenary-card">
+                <% if mercenary.picture.attached? %>
+                  <%= cl_image_tag mercenary.picture.key, class: "mercenary-image", alt: "Photo de #{mercenary.name}" %>
+                <% end %>
+                <h2><%= mercenary.name %></h2>
+                <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
+                <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
+                <%= link_to "Voir plus", mercenary_path(mercenary), class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p>Aucun mercenaire disponible...</p>
+        <% end %>
+      </div>
     </div>
-  <% else %>
-    <div class="no-mercenaries">
-      <p>Aucun mercenaire disponible...</p>
+
+    <!-- Colonne de la carte (Droite) -->
+    <div class="col-md-4">
+      <div id="map" class="map-container"
+           data-controller="map"
+           data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+           data-map-markers-value="<%= @markers.to_json %>"></div>
     </div>
-  <% end %>
+  </div>
 </div>

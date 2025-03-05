@@ -1,5 +1,7 @@
 .mercenary-container {
-  max-width: 1200px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -79,9 +81,9 @@
 
 .mercenary-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
   gap: 20px;
-  padding: 20px;
+  width: 60%;
 }
 
 
@@ -103,4 +105,37 @@
     font-weight: bold;
     // color: #ffffff;
   }
+}
+
+.mercenary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.mercenary-card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}
+
+#map {
+  height: 500px; /* Ajuste selon tes besoins */
+  width: 500px;
+}
+
+.map-container {
+  width: 100%;
+  height: 500px; /* Assure-toi que la carte ne disparaisse pas */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mercenaries-map-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
