@@ -4,10 +4,24 @@
   </div>
 
   <div class="mercenary-profile">
-    <p><strong>Spécialité :</strong> <%= @mercenary.specialty %></p>
-    <p><strong>Bio :</strong> <%= @mercenary.bio %></p>
-    <p><strong>Prix :</strong> <%= number_to_currency(@mercenary.price_per_day, unit: "€") %> / jour</p>
-    <p><strong>Adresse :</strong> <%= @mercenary.address %></p>
+    <p>
+      <i class="fa-solid fa-jedi" title="Spécialité"></i>
+      <strong> : </strong><%= @mercenary.specialty %>
+    </p>
+
+    <p>
+      <i class="fa-solid fa-user-ninja" title="Bio"></i>
+      <strong> : </strong> <%= @mercenary.bio %>
+    </p>
+
+    <p>
+      <i class="fa-solid fa-coins" title="Prix par jour"></i>
+      <strong> : </strong> <%= number_to_currency(@mercenary.price_per_day, unit: "€") %> / jour</p>
+
+    <p>
+      <i class="fa-solid fa-map-location-dot" title="Adresse"></i>
+      <strong> : </strong> <%= @mercenary.address %>
+      </p>
 
     <% if @mercenary.picture.attached? %>
       <%= cl_image_tag @mercenary.picture.key, height: 300, width: 400, crop: :fill %>
