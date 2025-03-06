@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem 'geocoder'
+
 gem 'bcrypt', '~> 3.1.7'
 
 ruby "3.3.5"
