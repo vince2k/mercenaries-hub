@@ -16,6 +16,10 @@
     </div>
 
     <div>
+      <%= form.input :target_photo, as: :file, label: "Image de la cible" %>
+    </div>
+
+    <div>
       <%= form.submit @booking.persisted? ? "Modifier le contrat" : "Recruter", class: "btn btn-primary" %>
     </div>
   <% end %>

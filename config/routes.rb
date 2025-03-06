@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
-  resources :bookings, only: [:index] do
+  resources :bookings, only: [:index, :destroy] do
+    member do
+      patch :toggle_status
+      patch :assign
+      patch :cancel
+    end
     resources :reviews, only: [:new, :create, :index, :edit, :update]
   end
 
