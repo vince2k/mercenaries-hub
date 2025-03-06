@@ -3,27 +3,42 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["query"];
 
+  connect() {
+    console.log("Search controller connected");
+  }
+
   updateMap(event) {
-    const searchTerm = event.target.value.trim().toLowerCase();
-    console.log("Recherche utilisateur :", searchTerm);
+    clearTimeout(this.searchTimeout);
 
-    const markers = window.mapController.markersMap;
-    if (!markers) {
-      console.error("Erreur : Aucun marqueur n'est chargé !");
-      return;
-    }
+    this.searchTimeout = setTimeout(() => {
+      const searchTerm = event.target.value.trim().toLowerCase();
+      console.log("🔍 Recherche en cours :", searchTerm);
 
-    const foundMarker = markers[searchTerm];
+      if (!searchTerm) return;
 
-    if (foundMarker) {
-      console.log("Mercenaire trouvé :", searchTerm);
-      window.mapController.map.flyTo({
-        center: foundMarker.getLngLat(),
-        zoom: 12
-      });
-      foundMarker.togglePopup();
-    } else {
-      console.warn("Aucun mercenaire trouvé pour :", searchTerm);
-    }
+      const markers = window.mapController.markersMap;
+      if (!markers) {
+        console.error("Erreur : Aucun marqueur n'est chargé");
+        return;
+      }
+
+      const foundMarkerEntry = Object.entries(markers).find(([name, marker]) =>
+        name.includes(searchTerm)
+      );
+
+      if (foundMarkerEntry) {
+        const [matchedName, foundMarker] = foundMarkerEntry;
+        console.log("Mercenaire trouvé :", matchedName);
+
+        window.mapController.map.flyTo({
+          center: foundMarker.getLngLat(),
+          zoom: 12,
+        });
+
+        foundMarker.togglePopup();
+      } else {
+        console.warn("Aucun mercenaire trouvé pour :", searchTerm);
+      }
+    }, 300);
   }
 }

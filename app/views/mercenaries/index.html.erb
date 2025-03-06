@@ -48,6 +48,7 @@
                 <% if mercenary.picture.attached? %>
                   <%= cl_image_tag mercenary.picture.key, class: "mercenary-image", alt: "Photo de #{mercenary.name}" %>
                 <% end %>
+
                 <h2><%= mercenary.name %></h2>
                 <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
                 <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>
@@ -66,7 +67,7 @@
       <!-- Barre de recherche -->
           <div class="search-container">
             <input type="text"
-                   placeholder="Rechercher un mercenaire..."
+                   placeholder="Rechercher..."
                    data-controller="search"
                    data-action="input->search#updateMap">
           </div>
