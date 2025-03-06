@@ -5,8 +5,8 @@ class BookingsController < ApplicationController
 
   def index
     Booking.update_all_statuses # Met à jour tous les statuts des réservations
-    @bookings = current_user.bookings # Toutes les réservations de l'utilisateur connecté
-    @recruitment_requests = Booking.joins(:mercenary).where(mercenaries: { user_id: current_user.id }).includes(:user)
+    @bookings = current_user.bookings.order(start_date: :asc) # Toutes les réservations de l'utilisateur connecté ordonnées par date de début
+    @recruitment_requests = Booking.joins(:mercenary).where(mercenaries: { user_id: current_user.id }).includes(:user).order(start_date: :asc)
   end
 
   def new

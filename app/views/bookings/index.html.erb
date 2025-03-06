@@ -9,8 +9,10 @@
           <% if booking.target_photo.attached? %>
             <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
           <% else %>
-            <%= image_tag "favicon", class: "target-img" %>
+            <p class="target-text">Pas d'image</p>
+            <%= image_tag "default_avatar", class: "target-img" %>
           <% end %>
+          <i class="fa-solid fa-crosshairs target-overlay"></i>
         </div>
         <div class="card-booking-purpose">
           <p><i class="pt-2 fa-solid fa-location-crosshairs"></i></i> <%= booking.mission_purpose %></p>
@@ -26,8 +28,7 @@
           <p><i class="fa-solid fa-calendar-day"></i> <%= booking.start_date.strftime("%d/%m/%Y") %> - <%= booking.end_date.strftime("%d/%m/%Y") %></p>
         </div>
         <div class="card-booking-user">
-          <%= cl_image_tag booking.mercenary.user.photo.key, gravity: :face, crop: :thumb, class: "avatar" if booking.user.photo.attached? %>
-          <p><i class="pt-2 fa-solid fa-house-user"></i> <%= booking.mercenary.user.nickname %></p>
+          <p><i class="fa-solid fa-house-user"></i> <%= booking.mercenary.user.nickname %></p>
         </div>
         <div class="card-booking-price">
           <p><%= number_to_currency(booking.total_price, unit: "€", format: "%n %u") %></p>
@@ -82,8 +83,10 @@
           <% if booking.target_photo.attached? %>
             <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
           <% else %>
-            <%= image_tag "favicon", class: "target-img" %>
+            <p class="target-text">Pas d'image</p>
+            <%= image_tag "default_avatar", class: "target-img" %>
           <% end %>
+          <i class="fa-solid fa-crosshairs target-overlay"></i>
         </div>
         <div class="card-booking-purpose">
           <p><i class="fa-solid fa-location-crosshairs"></i></i> <%= booking.mission_purpose %></p>
@@ -99,7 +102,6 @@
           <p><i class="fa-solid fa-calendar-day"></i> <%= booking.start_date.strftime("%d/%m/%Y") %> - <%= booking.end_date.strftime("%d/%m/%Y") %></p>
         </div>
         <div class="card-booking-user">
-          <%= cl_image_tag booking.user.photo.key, class: "avatar pb" if booking.user.photo.attached? %>
           <p><i class="fa-solid fa-user"></i></i> <%= booking.user.nickname %></p>
         </div>
         <div class="card-booking-price">

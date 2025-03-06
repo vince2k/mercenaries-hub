@@ -32,6 +32,9 @@
     text-align: center;
   }
 
+  .card-booking-target {
+    position: relative; /* pour positionner .target-overlay */
+  }
   .target-img {
     height: 100px;
     width: 150px;
@@ -40,35 +43,35 @@
     object-fit: cover;
   }
 
+  .target-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centre l'icône */
+    font-size: 80px;
+    color: red;
+    opacity: 0.5;
+    z-index: 2; /* S'assure que l'icône est au-dessus de l'image */
+  }
+
+  .target-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin: 0;
+    z-index: 3; // Texte au-dessus de l'icône
+  }
+
   p {
     font-size: 12px;
     line-height: 1.4;
     opacity: .7;
     margin: 0;
-  }
-
-  // Responsive : Vertical sur mobile
-  @media (max-width: 768px) {
-    flex-direction: column;
-    height: auto;
-    width: 100%;
-
-    .card-booking-target,
-    .card-booking-mercenary,
-    .card-booking-place,
-    .card-booking-user,
-    .card-booking-price,
-    .card-booking-actions {
-      flex: none;
-      width: 100%;
-      padding: 8px 0;
-    }
-
-    img.target-img {
-      width: 100%;
-      height: auto;
-      max-height: 150px;
-      padding: 16px;
-    }
   }
 }
