@@ -33,7 +33,7 @@ class Booking < ApplicationRecord
 
   validate :end_date_after_start_date
   before_save :calculate_total_price
-  before_save :update_status  # Mise à jour automatique du statut
+  # before_save :update_status  # Mise à jour automatique du statut
 
   def end_date_after_start_date
     return unless start_date && end_date
@@ -54,14 +54,14 @@ class Booking < ApplicationRecord
   end
 
   # Méthode d'instance pour mettre à jour un booking spécifique
-  def update_status
-    return unless start_date && end_date
-    if status == "assigned" && Date.today >= start_date && Date.today <= end_date
-      update(status: "in_progress")
-    elsif status == "in_progress" && Date.today > end_date
-      update(status: "over")
-    end
-  end
+  # def update_status
+  #   return unless start_date && end_date
+  #   if status == "assigned" && Date.today >= start_date && Date.today <= end_date
+  #     update(status: "in_progress")
+  #   elsif status == "in_progress" && Date.today > end_date
+  #     update(status: "over")
+  #   end
+  # end
 
   # Méthode de classe pour mettre à jour tous les bookings
   def self.update_all_statuses

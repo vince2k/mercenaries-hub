@@ -5,15 +5,13 @@
   <% if @bookings.any? %>
     <% @bookings.each do |booking| %>
       <div class="card-booking">
-        <%= link_to edit_mercenary_booking_path(booking.mercenary, booking) do  %>
-          <div class="card-booking-target">
-            <% if booking.target_photo.attached? %>
-              <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
-            <% else %>
-              <%= image_tag "favicon", class: "target-img" %>
-            <% end %>
-          </div>
-        <% end %>
+        <div class="card-booking-target">
+          <% if booking.target_photo.attached? %>
+            <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
+          <% else %>
+            <%= image_tag "favicon", class: "target-img" %>
+          <% end %>
+        </div>
         <div class="card-booking-purpose">
           <p><i class="pt-2 fa-solid fa-location-crosshairs"></i></i> <%= booking.mission_purpose %></p>
         </div>
@@ -36,13 +34,16 @@
         </div>
         <div class="card-booking-actions">
           <% if booking.pending? %>
+            <%= link_to edit_mercenary_booking_path(booking.mercenary, booking) do %>
+              <i class="fa-solid fa-pen-to-square text-info"></i>
+            <% end %>
           <%= link_to booking_path(booking), data: { turbo_confirm: "Etes-vous sûr de vouloir annuler la mission ?", turbo_method: :delete } do %>
             <i class="fa-solid fa-ban text-danger"></i>
           <% end %>
           <% elsif booking.assigned? %>
             <i class="fa-solid fa-check text-success"></i>
           <% elsif booking.cancelled? %>
-            <i class="fa-solid fa-ban text-info"></i>
+            <i class="fa-solid fa-ban text-warning"></i>
           <% elsif booking.in_progress? %>
             <i class="fa-solid fa-rotate text-info"></i>
           <% elsif booking.over? %>
