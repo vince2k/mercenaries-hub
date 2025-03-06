@@ -36,10 +36,10 @@
         <div class="card-booking-actions">
           <% if booking.pending? %>
             <% if booking.review.nil? %>
-              <%= link_to edit_mercenary_booking_path(booking.mercenary, booking) do %>
+              <%= link_to edit_mercenary_booking_path(booking.mercenary, booking), title: "Modifier la mission" do %>
                 <i class="fa-solid fa-pen-to-square text-info"></i>
               <% end %>
-              <%= link_to booking_path(booking), data: { turbo_confirm: "Êtes-vous sûr de vouloir annuler la mission ?", turbo_method: :delete } do %>
+              <%= link_to booking_path(booking), title: "Supprimer la mission", data: { turbo_confirm: "Êtes-vous sûr de vouloir annuler la mission ?", turbo_method: :delete } do %>
                 <i class="fa-solid fa-ban text-danger"></i>
               <% end %>
             <% else %>
