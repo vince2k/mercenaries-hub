@@ -34,23 +34,34 @@
         </div>
         <div class="card-booking-actions">
           <% if booking.pending? %>
-            <%= link_to edit_mercenary_booking_path(booking.mercenary, booking) do %>
+            <% if booking.review.nil? %>
+              <%= link_to edit_mercenary_booking_path(booking.mercenary, booking) do %>
+                <i class="fa-solid fa-pen-to-square text-info"></i>
+              <% end %>
+              <%= link_to booking_path(booking), data: { turbo_confirm: "Êtes-vous sûr de vouloir annuler la mission ?", turbo_method: :delete } do %>
+                <i class="fa-solid fa-ban text-danger"></i>
+              <% end %>
+            <% else %>
               <i class="fa-solid fa-pen-to-square text-info"></i>
+              <i class="fa-solid fa-ban text-danger"></i>
             <% end %>
-          <%= link_to booking_path(booking), data: { turbo_confirm: "Etes-vous sûr de vouloir annuler la mission ?", turbo_method: :delete } do %>
-            <i class="fa-solid fa-ban text-danger"></i>
-          <% end %>
           <% elsif booking.assigned? %>
             <i class="fa-solid fa-check text-success"></i>
           <% elsif booking.cancelled? %>
             <i class="fa-solid fa-ban text-warning"></i>
           <% elsif booking.in_progress? %>
             <i class="fa-solid fa-rotate text-info"></i>
-          <% elsif booking.over? %>
-            <%= link_to edit_booking_review_path(booking_id: booking.id, id: booking.review.id) do  %>
-              <i class="fa-solid fa-check <%= booking.review.nil? ? 'text-info' : 'text-success' %>"></i>
+          <% elsif (booking.over? || booking.completed? || booking.failed?) %>
+            <% if booking.review.nil? %>
+              <%= link_to new_booking_review_path(booking), title: "Déposer un avis sur cette mission" do%>
+                <i class="fa-solid <%= booking.over? ? 'fa-check text-info' : booking.completed? ? 'fa-trophy text-warning' : 'fa-xmark text-warning' %>"></i>
+                <% end %>
+            <% else %>
+              <%= link_to edit_booking_review_path(booking_id: booking.id, id: booking.review.id), title: "Modifier mon avis à cette mission" do %>
+                <i class="fa-solid <%= booking.over? ? 'fa-check text-success' : booking.completed? ? 'fa-trophy text-success' : booking.failed? ? 'fa-xmark text-danger' : '' %>"></i>
+              <% end %>
             <% end %>
-        <% end %>
+          <% end %>
           <p><%= booking.status_text %></p>
         </div>
       </div>
@@ -96,10 +107,10 @@
         </div>
         <div class="card-booking-actions">
           <% if booking.pending? %>
-            <%= link_to assign_booking_path(booking), data: { turbo_method: :patch, turbo_confirm: "Assigner cette mission ?" }, class: "text-success" do %>
+            <%= link_to assign_booking_path(booking), data: { turbo_method: :patch, turbo_confirm: "Assigner cette mission ?" }, title: "Accepter cette mission", class: "text-success" do %>
               <i class="fa-solid fa-check"></i>
             <% end %>
-            <%= link_to cancel_booking_path(booking), data: { turbo_method: :patch, turbo_confirm: "Annuler cette mission ?" }, class: "text-danger" do %>
+            <%= link_to cancel_booking_path(booking), data: { turbo_method: :patch, turbo_confirm: "Annuler cette mission ?" }, title: "Refuser cette mission", class: "text-danger" do %>
               <i class="fa-solid fa-ban"></i>
             <% end %>
           <% elsif booking.assigned? %>
@@ -107,14 +118,18 @@
           <% elsif booking.in_progress? %>
             <i class="fa-solid fa-rotate text-info"></i>
           <% elsif booking.over? %>
-            <%= link_to toggle_status_booking_path(booking, new_status: "completed"), data: { turbo_method: :patch, turbo_confirm: "Marquer comme succès ?" }, class: "text-success" do %>
+            <%= link_to toggle_status_booking_path(booking, new_status: "completed"), data: { turbo_method: :patch, turbo_confirm: "Marquer comme succès ?" }, title: "Déclarer le succès de la mission", class: "text-success" do %>
               <i class="fa-solid fa-check"></i>
             <% end %>
-            <%= link_to toggle_status_booking_path(booking, new_status: "failed"), data: { turbo_method: :patch, turbo_confirm: "Marquer comme échec ?" }, class: "text-danger" do %>
+            <%= link_to toggle_status_booking_path(booking, new_status: "failed"), data: { turbo_method: :patch, turbo_confirm: "Marquer comme échec ?" }, title: "Déclarer l'échec de la mission", class: "text-danger" do %>
               <i class="fa-solid fa-xmark"></i>
             <% end %>
+          <% elsif booking.completed? %>
+            <i class="fa-solid fa-trophy text-success"></i>
+          <% elsif booking.failed? %>
+            <i class="fa-solid fa-xmark text-danger"></i>
           <% elsif booking.cancelled? %>
-            <i class="fa-solid fa-ban text-info"></i>
+            <i class="fa-solid fa-ban text-warning"></i>
           <% end %>
           <p><%= booking.status_text %></p>
         </div>
