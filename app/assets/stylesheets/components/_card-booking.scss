@@ -1,0 +1,70 @@
+
+.card-booking {
+  height: 120px;
+  background: $dark-blue;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  transition: all .3s;
+
+  &:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+
+  // Styles pour chaque colonne
+  .card-booking-target,
+  .card-booking-purpose,
+  .card-booking-mercenary,
+  .card-booking-place,
+  .card-booking-user,
+  .card-booking-price,
+  .card-booking-actions {
+    flex: 1; // Chaque colonne prend une part égale de l’espace
+    padding: 8px;
+    text-align: center;
+  }
+
+  .target-img {
+    height: 100px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: .7;
+    margin: 0;
+  }
+
+  // Responsive : Vertical sur mobile
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+
+    .card-booking-target,
+    .card-booking-mercenary,
+    .card-booking-place,
+    .card-booking-user,
+    .card-booking-price,
+    .card-booking-actions {
+      flex: none;
+      width: 100%;
+      padding: 8px 0;
+    }
+
+    img.target-img {
+      width: 100%;
+      height: auto;
+      max-height: 150px;
+      padding: 16px;
+    }
+  }
+}

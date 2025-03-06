@@ -1,75 +1,126 @@
 <div class="container">
-  <h2>Mes réservations effectuées</h2>
+
+<h2>Mes réservations effectuées</h2>
 
   <% if @bookings.any? %>
-    <table class="table table-dark table-hover">
-      <thead>
-        <tr>
-          <th>Mission</th>
-          <th>Lieu</th>
-          <th>Date de début</th>
-          <th>Date de fin</th>
-          <th>Mercenaire</th>
-          <th>Employeur</th>
-          <th>Prix total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @bookings.each do |booking| %>
-          <tr>
-            <td><%= link_to booking.mission_purpose, edit_mercenary_booking_path(booking.mercenary, booking) %></td>
-            <td><%= booking.mission_place %></td>
-            <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
-            <td><%= booking.end_date.strftime("%d/%m/%Y") %></td>
-            <td><%= link_to booking.mercenary.name, mercenary_path(booking.mercenary) %></td>
-            <td><%= booking.mercenary.user.nickname %></td>
-            <td><%= booking.total_price %> €</td>
-            <% if booking.review.nil? %>
-              <td><%= link_to "Ajouter un avis", new_booking_review_path(booking) %></td>
+    <% @bookings.each do |booking| %>
+      <div class="card-booking">
+        <%= link_to edit_mercenary_booking_path(booking.mercenary, booking) do  %>
+          <div class="card-booking-target">
+            <% if booking.target_photo.attached? %>
+              <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
             <% else %>
-              <td><%= link_to "Modifier l'avis",  edit_booking_review_path(booking_id: booking.id, id: booking.review.id) %></td>
+              <%= image_tag "favicon", class: "target-img" %>
             <% end %>
-          </tr>
+          </div>
         <% end %>
-      </tbody>
-    </table>
+        <div class="card-booking-purpose">
+          <p><i class="pt-2 fa-solid fa-location-crosshairs"></i></i> <%= booking.mission_purpose %></p>
+        </div>
+        <div class="card-booking-mercenary">
+          <%= cl_image_tag booking.mercenary.picture.key, class: "avatar" if booking.mercenary.picture.attached? %>
+          <p><i class="pt-2 fa-solid fa-person-rifle"></i> <strong><%= booking.mercenary.name %></strong></p>
+        </div>
+        <div class="card-booking-place">
+          <p><i class="fa-solid fa-location-dot"></i> <%= booking.mission_place %></p>
+        </div>
+        <div class="card-booking-dates">
+          <p><i class="fa-solid fa-calendar-day"></i> <%= booking.start_date.strftime("%d/%m/%Y") %> - <%= booking.end_date.strftime("%d/%m/%Y") %></p>
+        </div>
+        <div class="card-booking-user">
+          <%= cl_image_tag booking.mercenary.user.photo.key, gravity: :face, crop: :thumb, class: "avatar" if booking.user.photo.attached? %>
+          <p><i class="pt-2 fa-solid fa-house-user"></i> <%= booking.mercenary.user.nickname %></p>
+        </div>
+        <div class="card-booking-price">
+          <p><%= number_to_currency(booking.total_price, unit: "€", format: "%n %u") %></p>
+        </div>
+        <div class="card-booking-actions">
+          <% if booking.pending? %>
+          <%= link_to booking_path(booking), data: { turbo_confirm: "Etes-vous sûr de vouloir annuler la mission ?", turbo_method: :delete } do %>
+            <i class="fa-solid fa-ban text-danger"></i>
+          <% end %>
+          <% elsif booking.assigned? %>
+            <i class="fa-solid fa-check text-success"></i>
+          <% elsif booking.cancelled? %>
+            <i class="fa-solid fa-ban text-info"></i>
+          <% elsif booking.in_progress? %>
+            <i class="fa-solid fa-rotate text-info"></i>
+          <% elsif booking.over? %>
+            <%= link_to edit_booking_review_path(booking_id: booking.id, id: booking.review.id) do  %>
+              <i class="fa-solid fa-check <%= booking.review.nil? ? 'text-info' : 'text-success' %>"></i>
+            <% end %>
+        <% end %>
+          <p><%= booking.status_text %></p>
+        </div>
+      </div>
+    <% end %>
   <% else %>
-    <p>Vous n’avez pas encore de réservations.</p>
-  <% end %>
+  <p>Aucune réservation pour le moment.</p>
+<% end %>
+
 
   <%= link_to "Réserver un mercenaire", mercenaries_path, class: "mb-5 btn btn-primary" %>
 
    <h2>Demandes de recrutement reçues</h2>
 
   <% if @recruitment_requests.any? %>
-    <table class="table table-dark table-hover">
-      <thead>
-        <tr>
-          <th>Mission</th>
-          <th>Lieu</th>
-          <th>Date de début</th>
-          <th>Date de fin</th>
-          <th>Mercenaire</th>
-          <th>Demandeur</th>
-          <th>Prix total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @recruitment_requests.each do |request| %>
-          <tr>
-            <td><%= request.mission_purpose %></td>
-            <td><%= request.mission_place %></td>
-            <td><%= request.start_date.strftime("%d/%m/%Y") %></td>
-            <td><%= request.end_date.strftime("%d/%m/%Y") %></td>
-            <td><%= link_to request.mercenary.name, mercenary_path(request.mercenary) %></td>
-            <td><%= request.user.nickname %></td>
-            <td><%= request.total_price %> €</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <% @recruitment_requests.each do |booking| %>
+      <div class="card-booking">
+        <div class="card-booking-target">
+          <% if booking.target_photo.attached? %>
+            <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
+          <% else %>
+            <%= image_tag "favicon", class: "target-img" %>
+          <% end %>
+        </div>
+        <div class="card-booking-purpose">
+          <p><i class="fa-solid fa-location-crosshairs"></i></i> <%= booking.mission_purpose %></p>
+        </div>
+        <div class="card-booking-mercenary">
+          <%= cl_image_tag booking.mercenary.picture.key, class: "avatar " if booking.mercenary.picture.attached? %>
+          <p><i class="pt-2 fa-solid fa-person-rifle"></i> <strong><%= booking.mercenary.name %></strong></p>
+        </div>
+        <div class="card-booking-place">
+          <p><i class="fa-solid fa-location-dot"></i> <%= booking.mission_place %></p>
+        </div>
+        <div class="card-booking-dates">
+          <p><i class="fa-solid fa-calendar-day"></i> <%= booking.start_date.strftime("%d/%m/%Y") %> - <%= booking.end_date.strftime("%d/%m/%Y") %></p>
+        </div>
+        <div class="card-booking-user">
+          <%= cl_image_tag booking.user.photo.key, class: "avatar pb" if booking.user.photo.attached? %>
+          <p><i class="fa-solid fa-user"></i></i> <%= booking.user.nickname %></p>
+        </div>
+        <div class="card-booking-price">
+          <p><%= number_to_currency(booking.total_price, unit: "€", format: "%n %u") %></p>
+        </div>
+        <div class="card-booking-actions">
+          <% if booking.pending? %>
+            <%= link_to assign_booking_path(booking), data: { turbo_method: :patch, turbo_confirm: "Assigner cette mission ?" }, class: "text-success" do %>
+              <i class="fa-solid fa-check"></i>
+            <% end %>
+            <%= link_to cancel_booking_path(booking), data: { turbo_method: :patch, turbo_confirm: "Annuler cette mission ?" }, class: "text-danger" do %>
+              <i class="fa-solid fa-ban"></i>
+            <% end %>
+          <% elsif booking.assigned? %>
+            <i class="fa-solid fa-check text-info"></i>
+          <% elsif booking.in_progress? %>
+            <i class="fa-solid fa-rotate text-info"></i>
+          <% elsif booking.over? %>
+            <%= link_to toggle_status_booking_path(booking, new_status: "completed"), data: { turbo_method: :patch, turbo_confirm: "Marquer comme succès ?" }, class: "text-success" do %>
+              <i class="fa-solid fa-check"></i>
+            <% end %>
+            <%= link_to toggle_status_booking_path(booking, new_status: "failed"), data: { turbo_method: :patch, turbo_confirm: "Marquer comme échec ?" }, class: "text-danger" do %>
+              <i class="fa-solid fa-xmark"></i>
+            <% end %>
+          <% elsif booking.cancelled? %>
+            <i class="fa-solid fa-ban text-info"></i>
+          <% end %>
+          <p><%= booking.status_text %></p>
+        </div>
+      </div>
+    <% end %>
   <% else %>
-    <p>Aucune demande de recrutement pour vos mercenaires pour le moment.</p>
+    <p>Aucune demande de recrutement pour le moment.</p>
   <% end %>
+
 </div>

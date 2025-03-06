@@ -1,9 +1,10 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :index]
+  before_action :authenticate_user!, only: [:new, :create, :index, :toggle_status, :assign, :cancel]
   before_action :set_mercenary, only: [:new, :create, :edit, :update] # Définit @mercenary à partir de :mercenary_id
-  before_action :set_booking, only: [:edit, :update, :destroy] # Définit @booking à partir de :id
+  before_action :set_booking, only: [:edit, :update, :destroy, :toggle_status, :assign, :cancel] # Définit @booking à partir de :id
 
   def index
+    Booking.update_all_statuses # Met à jour tous les statuts des réservations
     @bookings = current_user.bookings # Toutes les réservations de l'utilisateur connecté
     @recruitment_requests = Booking.joins(:mercenary).where(mercenaries: { user_id: current_user.id }).includes(:user)
   end
@@ -34,6 +35,34 @@ class BookingsController < ApplicationController
     end
   end
 
+  def assign
+    if @booking&.pending? && @booking.update(status: "assigned")
+      redirect_to bookings_path, notice: "Mission assignée avec succès."
+    else
+      flash.now[:alert] = "Impossible d’assigner la mission."
+      render :index, status: :unprocessable_entity
+    end
+  end
+
+  def cancel
+    if @booking&.pending? && @booking.update(status: "cancelled")  # Ou "failed" si pas de "cancelled"
+      redirect_to bookings_path, notice: "Mission annulée avec succès."
+    else
+      flash.now[:alert] = "Impossible d’annuler la mission."
+      render :index, status: :unprocessable_entity
+    end
+  end
+
+  def toggle_status
+    new_status = params[:new_status]
+    if @booking.toggle_status(new_status)
+      redirect_to bookings_path, notice: "Statut mis à jour avec succès."
+    else
+      flash.now[:alert] = "Impossible de mettre à jour le statut."
+      render :index, status: :unprocessable_entity
+    end
+  end
+
   # a booking can be canceled, then so are the reviews
   def destroy
     @booking.destroy!
@@ -51,6 +80,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:mission_purpose, :mission_place, :start_date, :end_date)
+    params.require(:booking).permit(:mission_purpose, :mission_place, :start_date, :end_date, :target_photo, :status)
   end
 end
