@@ -15,15 +15,14 @@
       <p>Aucune image disponible</p>
     <% end %>
 
+    <!-- modifier car on n'accède pas au review ainsi -->
     <% if @reviews.present? %>
-      <h3>Avis</h3>
       <% @reviews.each do |review| %>
-      <p><strong>Note :</strong> <%= review.rating %>/5</p>
+      <p><strong>Note :</strong> <%= review.rating %>/5 <%= "(#{@mercenary.bookings.count})" %></p>
       <p><%= review.content %></p>
       <% end %>
     <% else %>
-      <h3>Avis</h3>
-      <p>Aucun avis pour ce mercenaire.</p>
+      <p>Pas d'avis pour ce mercenaire</p>
     <% end %>
 
 
