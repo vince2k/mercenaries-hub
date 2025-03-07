@@ -20,7 +20,6 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.booking = @booking
-
     # on part du booking puis on cree lka revue, alternative aux deux lignes plus haut: @review = @booking.build_review(review_params)
     # @review = @booking.build_review(review_params)
     if @review.save
@@ -48,7 +47,6 @@ class ReviewsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
-
   end
 
   def destroy
