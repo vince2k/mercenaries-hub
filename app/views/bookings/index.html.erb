@@ -5,15 +5,17 @@
   <% if @bookings.any? %>
     <% @bookings.each do |booking| %>
       <div class="card-booking">
-        <div class="card-booking-target">
-          <% if booking.target_photo.attached? %>
-            <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
-          <% else %>
-            <p class="target-text">Pas d'image</p>
-            <%= image_tag "default_avatar", class: "target-img" %>
-          <% end %>
-          <i class="fa-solid fa-crosshairs target-overlay"></i>
-        </div>
+        <%= link_to edit_mercenary_booking_path(booking.mercenary, booking) do  %>
+          <div class="card-booking-target">
+            <% if booking.target_photo.attached? %>
+              <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
+            <% else %>
+              <p class="target-text">Pas d'image</p>
+              <%= image_tag "default_avatar.jpg", class: "target-img" %>
+            <% end %>
+            <i class="fa-solid fa-crosshairs target-overlay"></i>
+          </div>
+        <% end %>
         <div class="card-booking-purpose">
           <p><i class="pt-2 fa-solid fa-location-crosshairs"></i></i> <%= booking.mission_purpose %></p>
         </div>
@@ -84,7 +86,7 @@
             <%= cl_image_tag booking.target_photo.key, class: "target-img" %>
           <% else %>
             <p class="target-text">Pas d'image</p>
-            <%= image_tag "default_avatar", class: "target-img" %>
+            <%= image_tag "default_avatar.jpg", class: "target-img" %>
           <% end %>
           <i class="fa-solid fa-crosshairs target-overlay"></i>
         </div>
