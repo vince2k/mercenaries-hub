@@ -113,6 +113,16 @@ end
 
   def my_mercenaries
     @mercenaries = current_user.mercenaries
+
+    @markers = @mercenaries.geocoded.map do |mercenary|
+      {
+        lat: mercenary.latitude,
+        lng: mercenary.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { mercenary: mercenary }),
+        name: mercenary.name
+      }
+    end
+
     render :index
   end
 
