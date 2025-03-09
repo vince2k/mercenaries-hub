@@ -11,6 +11,7 @@ class BookingsController < ApplicationController
 
   def new
     @booking = @mercenary.bookings.build # Initialise avec le mercenaire
+    @booked_dates = booked_dates_for_mercenary
   end
 
   def create
@@ -20,17 +21,20 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to bookings_path, notice: "Réservation ajoutée avec succès !"
     else
+      @booked_dates = booked_dates_for_mercenary
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    @booked_dates = booked_dates_for_mercenary(exclude_booking: @booking)
   end
 
   def update
     if @booking.update(booking_params)
       redirect_to bookings_path, notice: "Le contrat a été mis à jour avec succès."
     else
+      @booked_dates = booked_dates_for_mercenary(exclude_booking: @booking)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -81,5 +85,21 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:mission_purpose, :mission_place, :start_date, :end_date, :target_photo, :status)
+  end
+
+  def booked_dates_for_mercenary(exclude_booking: nil)
+    # Ne prendre que les bookings actifs (exclut cancelled)
+  bookings = @mercenary.bookings.where.not(status: "cancelled")
+    return [] if bookings.empty?
+
+    bookings = bookings.where.not(id: exclude_booking.id) if exclude_booking
+    bookings.flat_map do |b|
+      if b.start_date && b.end_date
+        (b.start_date..b.end_date).map { |d| d.strftime("%Y-%m-%d") }
+      else
+        Rails.logger.error "Booking #{b.id} has invalid dates: start_date=#{b.start_date}, end_date=#{b.end_date}"
+        []
+      end
+    end.uniq
   end
 end

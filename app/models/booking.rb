@@ -68,7 +68,7 @@ class Booking < ApplicationRecord
     Booking.all.each do |booking|
       if booking.status == "assigned" && Date.today >= booking.start_date && Date.today <= booking.end_date
         booking.update(status: "in_progress")
-      elsif booking.status == "pending" && Date.today >= booking.start_date
+      elsif booking.status == "pending" && Date.today > booking.start_date
         booking.update(status: "cancelled")
       elsif booking.status == "in_progress" && Date.today > booking.end_date
         booking.update(status: "over")
