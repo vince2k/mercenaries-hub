@@ -29,15 +29,28 @@
       <p>Aucune image disponible</p>
     <% end %>
 
+    <!-- modifier car on n'accède pas au review ainsi -->
     <% if @reviews.present? %>
-      <h3>Avis</h3>
+      <!-- on récupère les avis et les notes -->
+      <% @ratings_array = []  %>
       <% @reviews.each do |review| %>
-      <p><strong>Note :</strong> <%= review.rating %>/5</p>
-      <p><%= review.content %></p>
+        <% @ratings_array << review.rating %>
+      <% end %>
+      <!-- affichage de la note -->
+      <% @average_rating = @ratings_array.inject{ |sum, el| sum + el }.to_f / @ratings_array.size %>
+      <p><% @average_rating.floor.times do %>
+        <i class="fa-solid fa-star"></i>
+      <% end %>
+      <% (5 - @average_rating.floor).times do %>
+        <i class="fa-regular fa-star"></i>
+      <% end %>
+      <%= "(#{@mercenary.reviews.count})" %> </p>
+      <!-- affichage des avis -->
+      <% @reviews.each do |review| %>
+        <p><%= review.content %></p>
       <% end %>
     <% else %>
-      <h3>Avis</h3>
-      <p>Aucun avis pour ce mercenaire.</p>
+      <p>Pas d'avis pour ce mercenaire</p>
     <% end %>
 
 

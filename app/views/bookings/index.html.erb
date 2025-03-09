@@ -2,6 +2,16 @@
 
 <h2>Mes réservations effectuées</h2>
 
+<div>
+<% if @bookings.any? %>
+    <% @bookings.each do |booking| %>
+    <li>
+      <%= link_to new_booking_review_path(booking), new_booking_review_path(booking) %>
+    </li>
+    <% end %>
+<% end %>
+</div>
+
   <% if @bookings.any? %>
     <% @bookings.each do |booking| %>
       <div class="card-booking">

@@ -20,6 +20,14 @@
                     <h3 class="no-margin"><%= mercenary.name %></h3>
                     <p class="no-margin mercenary-bio"><%= mercenary.specialty %></p>
 
+
+                    <!-- affichage de la note avec les étoiles -->
+                    <p><% @best6_ratings[index].times do %>
+                      <i class="fa-solid fa-star"></i>
+                    <% end %>
+                    <% (5 - @best6_ratings[index]).times do %>
+                      <i class="fa-regular fa-star"></i>
+                    <% end %>
                     <% if mercenary.picture.attached? %>
                       <div class="mercenary-image-container">
                         <%= cl_image_tag mercenary.picture.key, class: "no-margin mercenary-image" %>
