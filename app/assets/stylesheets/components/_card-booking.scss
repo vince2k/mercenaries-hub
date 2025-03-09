@@ -34,7 +34,12 @@
 
   .card-booking-target {
     position: relative; /* pour positionner .target-overlay */
+
+    &:hover{
+      cursor: default;
+    }
   }
+  
   .target-img {
     height: 100px;
     width: 150px;
