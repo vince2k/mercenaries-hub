@@ -48,7 +48,6 @@
                 <% if mercenary.picture.attached? %>
                   <%= cl_image_tag mercenary.picture.key, class: "mercenary-image", alt: "Photo de #{mercenary.name}" %>
                 <% end %>
-
                 <h2><%= mercenary.name %></h2>
                 <p><strong>Spécialité :</strong> <%= mercenary.specialty %></p>
                 <p><strong>Tarif journalier :</strong> <%= mercenary.price_per_day %>€</p>

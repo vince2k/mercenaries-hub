@@ -19,7 +19,6 @@
                   <div class="mercenary-card text-center">
                     <h3 class="no-margin"><%= mercenary.name %></h3>
                     <p class="no-margin mercenary-bio"><%= mercenary.specialty %></p>
-
                     <% if mercenary.picture.attached? %>
                       <div class="mercenary-image-container">
                         <%= cl_image_tag mercenary.picture.key, class: "no-margin mercenary-image" %>
