@@ -1,15 +1,17 @@
 class PagesController < ApplicationController
   def home
-    @mercenaries = Mercenary.limit(6)
+    # @mercenaries = Mercenary.limit(6)
 
     # returns the best 6 rated mercenaries
-    @best6_mercenaries = best_rated
+    best_rated
+    @mercenaries = @best6_mercenaries
   end
 
   def best_rated
     @mercenaries_array = Mercenary.all
     @m_id = 0
     @average_rating = []
+    @best6 = []
     @bookings = @mercenaries_array.map { |mercenary| mercenary.bookings}
     # .map car c'est un array, on récupère les avis
     # @reviews = @bookings.map {|booking| booking.review}
@@ -18,7 +20,7 @@ class PagesController < ApplicationController
     # on itère sur l'array de tous les mercenaires
     @mercenaries_array.each do |item|
       # pour chaque mercenaire on récupère son id
-      @m_id = item.id
+      @m_id = item
       # pour chaque mercenaire on récupère les bookings
       @mercenary_bookings = item.bookings
       # Pour chaque booking on récupère les avis / la moyenne des notes
@@ -47,6 +49,14 @@ class PagesController < ApplicationController
       @average_rating << [@m_id, @average]
     end
     # on retourne les 6 meilleurs notes avec les identifiants de mecenaires
-    @average_rating.max(6)
+    @average_rating.sort_by! { |x, y| y }
+    # returns the last 0.18% mercenaries, 6 mercenaries
+    @best6 = @average_rating.last(@average_rating.size * 0.18)
+    @best6_mercenaries = []
+    @best6_ratings = []
+    @best6.each do |mercenary, rating|
+      @best6_mercenaries << mercenary
+      @best6_ratings << rating
+    end
   end
 end
