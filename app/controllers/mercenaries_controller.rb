@@ -138,6 +138,23 @@ end
       }
     end
 
+    # Filtrer par disponibilité si des dates sont fournies
+    if params[:start_date].present? && params[:end_date].present?
+      start_date = Date.parse(params[:start_date])
+      end_date = Date.parse(params[:end_date])
+      booked_mercenary_ids = Booking.active
+                                   .where(mercenary: @mercenaries)
+                                   .where("start_date <= ? AND end_date >= ?", end_date, start_date)
+                                   .pluck(:mercenary_id)
+      @mercenaries = @mercenaries.where.not(id: booked_mercenary_ids)
+    end
+
+    # Toujours définir @all_booked_dates comme un tableau, même vide
+    @all_booked_dates = Booking.active
+                               .where(mercenary: Mercenary.where(user_id: current_user.id))
+                               .flat_map { |b| (b.start_date..b.end_date).map { |d| d.strftime("%Y-%m-%d") } }
+                               .uniq || [] # Garantit un tableau vide si nil
+
     render :index
   end
 
