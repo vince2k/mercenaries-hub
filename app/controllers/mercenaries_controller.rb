@@ -38,6 +38,21 @@ class MercenariesController < ApplicationController
     end
   end
 
+  # Filtrer par disponibilité sur la plage de dates
+  if params[:start_date].present? && params[:end_date].present?
+    start_date = Date.parse(params[:start_date])
+    end_date = Date.parse(params[:end_date])
+    booked_mercenary_ids = Booking.active
+                                 .where("start_date <= ? AND end_date >= ?", end_date, start_date)
+                                 .pluck(:mercenary_id)
+    @mercenaries = @mercenaries.where.not(id: booked_mercenary_ids)
+  end
+
+  # Préparer toutes les dates réservées pour Flatpickr
+  @all_booked_dates = Booking.active.flat_map do |b|
+    (b.start_date..b.end_date).map { |d| d.strftime("%Y-%m-%d") }
+  end.uniq
+
   # Tri par prix
   if params[:order] == "price_asc"
     @mercenaries = @mercenaries.order(price_per_day: :asc)

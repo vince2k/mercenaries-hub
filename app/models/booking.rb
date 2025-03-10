@@ -16,6 +16,9 @@ class Booking < ApplicationRecord
     failed: 6            # "Échec de la mission"
   }, _default: :pending  # Valeur par défaut
 
+  # Scope pour les bookings actifs
+  scope :active, -> { where.not(status: "cancelled") }
+
   STATUS_TEXT = {
     "pending" => "En attente de validation",
     "assigned" => "Mission attribuée",
@@ -68,7 +71,7 @@ class Booking < ApplicationRecord
     Booking.all.each do |booking|
       if booking.status == "assigned" && Date.today >= booking.start_date && Date.today <= booking.end_date
         booking.update(status: "in_progress")
-      elsif booking.status == "pending" && Date.today >= booking.start_date
+      elsif booking.status == "pending" && Date.today > booking.start_date
         booking.update(status: "cancelled")
       elsif booking.status == "in_progress" && Date.today > booking.end_date
         booking.update(status: "over")

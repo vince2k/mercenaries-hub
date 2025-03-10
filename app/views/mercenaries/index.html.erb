@@ -8,16 +8,16 @@
         <%= select_tag :specialty, options_from_collection_for_select(Mercenary.distinct.pluck(:specialty), :to_s, :to_s, params[:specialty]), include_blank: "Toutes", class: "form-control" %>
       </div>
 
-      <!-- Date de début -->
-      <div class="col-md-2">
-        <%= label_tag :start_date, "Date de début :" %>
-        <%= date_field_tag :start_date, params[:start_date], class: "form-control" %>
-      </div>
-
-      <!-- Date de fin -->
-      <div class="col-md-2">
-        <%= label_tag :end_date, "Date de fin :" %>
-        <%= date_field_tag :end_date, params[:end_date], class: "form-control" %>
+      <!-- Plage de dates avec Flatpickr -->
+      <div class="col-md-4" data-controller="filter-datepicker" data-filter-datepicker-booked-dates-value="<%= @all_booked_dates.to_json %>">
+        <%= label_tag :date_range, "Plage de dates :" %>
+        <%= text_field_tag :date_range,
+                           params[:start_date] && params[:end_date] ? "#{params[:start_date]} to #{params[:end_date]}" : "",
+                           class: "form-control",
+                           data: { "filter-datepicker-target": "datepicker" },
+                           placeholder: "Sélectionnez une plage de dates" %>
+        <%= hidden_field_tag :start_date, params[:start_date], data: { "filter-datepicker-target": "startDate" } %>
+        <%= hidden_field_tag :end_date, params[:end_date], data: { "filter-datepicker-target": "endDate" } %>
       </div>
 
       <!-- Trier par -->
