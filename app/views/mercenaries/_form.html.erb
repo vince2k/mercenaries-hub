@@ -4,7 +4,7 @@
 
   <div class="form-inputs">
     <%= f.input :name, label: "Nom du mercenaire" %>
-    <%= f.input :bio, label: "Biographie" %>
+    <%= f.input :bio,as: :text, label: "Biographie" %>
     <%= f.input :price_per_day, label: "Tarif journalier (€)" %>
     <%= f.input :address, label: "Adresse" %>
     <%= f.input :specialty, label: "Spécialité" %>
