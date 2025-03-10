@@ -147,3 +147,92 @@ bookings.each_with_index do |booking_data, index|
   end
 end
 puts "#{Booking.count} bookings et #{Review.count} reviews ajoutés à la base de données !"
+
+# Création des bookings pour les deux mois à venir (mars et avril 2025)
+puts "Création des bookings pour mars et avril 2025..."
+start_period = Date.today # 10 mars 2025
+end_period = Date.today + 2.months # ~10 mai 2025
+
+Mercenary.all.each do |mercenary|
+  # Chaque mercenaire aura entre 5 et 10 bookings
+  rand(5..10).times do
+    start_date = start_period + rand(0..60) # Date aléatoire dans les 60 prochains jours
+    duration = rand(2..7) # Durée entre 2 et 7 jours
+    end_date = start_date + duration
+
+    # Vérifier les chevauchements pour éviter les conflits (optionnel)
+    next if mercenary.bookings.any? { |b| (b.start_date..b.end_date).overlaps?(start_date..end_date) && b.status != "cancelled" }
+
+    # Ne pas permettre à l'utilisateur qui a créé le mercenaire de le réserver
+    owner = users.find { |u| u.id == mercenary.user_id }
+    available_users = users - [owner]
+    user = available_users.sample
+    status = ["pending", "assigned", "in_progress", "over", "completed", "failed", "cancelled"].sample
+
+    begin
+      booking = Booking.new(
+        user: user,
+        mercenary: mercenary,
+        start_date: start_date,
+        end_date: end_date,
+        status: status,
+        mission_purpose: ["Surveillance", "Extraction", "Infiltration", "Combat", "Reconnaissance"].sample,
+        mission_place: ["Paris", "Tokyo", "New York", "Moscou", "Sydney"].sample
+      )
+      booking.save!
+      puts "Booking créé pour #{mercenary.name} par #{user.email} (#{start_date} - #{end_date})"
+    rescue StandardError => e
+      puts "Erreur lors de la création du booking pour #{mercenary.name} : #{e.message}"
+    end
+  end
+end
+
+# Création des reviews (au moins une par mercenaire + extras)
+puts "Création des reviews..."
+Mercenary.all.each do |mercenary|
+  # Au moins une review par mercenaire sur un booking terminé
+  completed_booking = mercenary.bookings.find_by(status: ["completed", "failed"]) ||
+                      Booking.create!(
+                        user: (users - [users.find { |u| u.id == mercenary.user_id }]).sample,
+                        mercenary: mercenary,
+                        start_date: Date.today - 10,
+                        end_date: Date.today - 5,
+                        status: "completed",
+                        mission_purpose: "Mission test",
+                        mission_place: "Berlin"
+                      )
+
+  begin
+    Review.create!(
+      booking: completed_booking,
+      rating: rand(3..5),
+      content: ["Super boulot !", "Efficace et discret.", "Mission réussie, mais un peu cher.", "À recommander !"].sample
+    )
+    puts "Review ajoutée pour #{mercenary.name}"
+  rescue StandardError => e
+    puts "Erreur lors de la création de la review pour #{mercenary.name} : #{e.message}"
+  end
+
+  # Ajouter 1 à 3 reviews supplémentaires sur des bookings terminés
+  rand(1..3).times do
+    past_booking = mercenary.bookings.where(status: ["completed", "failed"]).sample
+    next unless past_booking
+
+    begin
+      Review.create!(
+        booking: past_booking,
+        rating: rand(1..5),
+        content: ["Excellent travail", "Moyen, peut mieux faire", "Top niveau", "Déçu par le résultat"].sample
+      )
+      puts "Review supplémentaire ajoutée pour #{mercenary.name}"
+    rescue StandardError => e
+      puts "Erreur lors de la création d'une review supplémentaire pour #{mercenary.name} : #{e.message}"
+    end
+  end
+end
+
+puts "Seed terminé !"
+puts "#{User.count} utilisateurs"
+puts "#{Mercenary.count} mercenaires"
+puts "#{Booking.count} bookings"
+puts "#{Review.count} reviews"

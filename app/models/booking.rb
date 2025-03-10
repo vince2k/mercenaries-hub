@@ -16,6 +16,9 @@ class Booking < ApplicationRecord
     failed: 6            # "Échec de la mission"
   }, _default: :pending  # Valeur par défaut
 
+  # Scope pour les bookings actifs
+  scope :active, -> { where.not(status: "cancelled") }
+
   STATUS_TEXT = {
     "pending" => "En attente de validation",
     "assigned" => "Mission attribuée",
