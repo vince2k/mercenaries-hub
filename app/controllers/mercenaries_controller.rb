@@ -4,7 +4,7 @@ class MercenariesController < ApplicationController
   before_action :authorize_user!, only: [:edit, :update, :destroy] # Vérifie que l'utilisateur est propriétaire du mercenaire.
 
   def index
-    @mercenaries = Mercenary.all
+    @mercenaries = Mercenary.where.not(user_id: current_user&.id) # current_user&.id pour éviter une erreur si non connecté
 
     # Recherche par nom (sans casser les autres filtres)
     if params[:query].present?
