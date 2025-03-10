@@ -4,7 +4,7 @@ class MercenariesController < ApplicationController
   before_action :authorize_user!, only: [:edit, :update, :destroy] # Vérifie que l'utilisateur est propriétaire du mercenaire.
 
   def index
-    @mercenaries = Mercenary.all
+    @mercenaries = Mercenary.where.not(user_id: current_user&.id) # current_user&.id pour éviter une erreur si non connecté
 
     # Recherche par nom (sans casser les autres filtres)
     if params[:query].present?
@@ -37,6 +37,21 @@ class MercenariesController < ApplicationController
       @mercenaries = @mercenaries.where.not(id: reserved_mercenaries)
     end
   end
+
+  # Filtrer par disponibilité sur la plage de dates
+  if params[:start_date].present? && params[:end_date].present?
+    start_date = Date.parse(params[:start_date])
+    end_date = Date.parse(params[:end_date])
+    booked_mercenary_ids = Booking.active
+                                 .where("start_date <= ? AND end_date >= ?", end_date, start_date)
+                                 .pluck(:mercenary_id)
+    @mercenaries = @mercenaries.where.not(id: booked_mercenary_ids)
+  end
+
+  # Préparer toutes les dates réservées pour Flatpickr
+  @all_booked_dates = Booking.active.flat_map do |b|
+    (b.start_date..b.end_date).map { |d| d.strftime("%Y-%m-%d") }
+  end.uniq
 
   # Tri par prix
   if params[:order] == "price_asc"

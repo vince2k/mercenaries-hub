@@ -5,12 +5,13 @@ class BookingsController < ApplicationController
 
   def index
     Booking.update_all_statuses # Met à jour tous les statuts des réservations
-    @bookings = current_user.bookings.order(start_date: :asc) # Toutes les réservations de l'utilisateur connecté ordonnées par date de début
-    @recruitment_requests = Booking.joins(:mercenary).where(mercenaries: { user_id: current_user.id }).includes(:user).order(start_date: :asc)
+    @bookings = current_user.bookings.order(created_at: :asc) # Toutes les réservations de l'utilisateur connecté ordonnées par date de création
+    @recruitment_requests = Booking.joins(:mercenary).where(mercenaries: { user_id: current_user.id }).includes(:user).order(created_at: :asc)
   end
 
   def new
     @booking = @mercenary.bookings.build # Initialise avec le mercenaire
+    @booked_dates = booked_dates_for_mercenary # Dates déjà réservées pour le mercenaire
   end
 
   def create
@@ -20,17 +21,20 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to bookings_path, notice: "Réservation ajoutée avec succès !"
     else
+      @booked_dates = booked_dates_for_mercenary
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    @booked_dates = booked_dates_for_mercenary(exclude_booking: @booking) # Dates déjà réservées pour le mercenaire, sauf la réservation en cours
   end
 
   def update
     if @booking.update(booking_params)
       redirect_to bookings_path, notice: "Le contrat a été mis à jour avec succès."
     else
+      @booked_dates = booked_dates_for_mercenary(exclude_booking: @booking)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -81,5 +85,20 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:mission_purpose, :mission_place, :start_date, :end_date, :target_photo, :status)
+  end
+
+  def booked_dates_for_mercenary(exclude_booking: nil)
+    bookings = @mercenary.bookings.where.not(status: "cancelled") # Ne prendre que les bookings actifs (exclut cancelled)
+    return [] if bookings.empty?
+
+    bookings = bookings.where.not(id: exclude_booking.id) if exclude_booking
+    bookings.flat_map do |b| #transfomre un tableau de tableaux en un tableau
+      if b.start_date && b.end_date
+        (b.start_date..b.end_date).map { |d| d.strftime("%Y-%m-%d") }
+      else
+        Rails.logger.error "Booking #{b.id} has invalid dates: start_date=#{b.start_date}, end_date=#{b.end_date}" # Logue l'erreur
+        []
+      end
+    end.uniq # Supprime les doublons
   end
 end
