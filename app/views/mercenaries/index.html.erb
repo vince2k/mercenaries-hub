@@ -40,7 +40,11 @@
     <div class="col-md-8">
       <div class="mercenary-container">
         <% if @mercenaries.any? %>
-          <h1>Nos mercenaires :</h1>
+          <% if current_page?(my_mercenaries_mercenaries_path) %>
+            <h1>Mes mercenaires :</h1>
+          <% else %>
+            <h1>Nos mercenaires :</h1>
+          <% end %>
           <!-- Liste des mercenaires -->
           <div class="mercenary-list">
             <% @mercenaries.each do |mercenary| %>
